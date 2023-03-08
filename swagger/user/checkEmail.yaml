@@ -1,0 +1,43 @@
+get:
+  tags:
+    - User
+  summary: 회원가입시 이메일 중복체크
+  description: 회원가입시 이메일 중복체크
+  produces:
+    - application/json
+  parameters:
+    - name: email
+      in: query
+      description: 중복체크할 이메일
+      required: true
+      type: string
+      example: http://localhost:8000/users/checkemail?email=test123
+  responses:
+      200:
+        description: successful operation
+        content:
+          apllication/json:
+            schema:
+              $ref: '#/components/schemas/Success'
+      500:
+        description: Internal server error
+        content:
+          apllication/json:
+            schema:
+              $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    Success:
+      type: object
+      properties:
+        message:
+          type: string
+          description: 이메일 중복체크 성공 메세지
+          example: 'AVAILABLE_EMAIL'
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+          description: 이메일 중복체크 실패 메세지
+          example: '(THIS_EMAIL)_IS_EMAIL_THAT_ALREADY_EXSITS'

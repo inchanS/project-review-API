@@ -10,8 +10,19 @@ info:
     name: Inchan Song
     url: https://github.com/inchanS
     email: song@inchan.dev
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
 paths:
   /users/signup:
     $ref: "./user/signUp.yaml"
   /users/signin:
     $ref: "./user/signIn.yaml"
+  /users/checknickname:
+    $ref: "./user/checkNickname.yaml"
+  /users/checkemail:
+    $ref: "./user/checkEmail.yaml"
+  /users/getme:
+    $ref: "./user/getMe.yaml"

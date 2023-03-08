@@ -1,0 +1,38 @@
+get:
+  tags:
+    - User
+  summary: 로그인한 유저의 모든 정보 보기
+  description: 로그인한 유저의 ID, 가입일, 닉네임, 이메일과 게시글 목록, 댓글 목록을 반환합니다.
+  produces:
+    - application/json
+  security:
+    - BearerAuth: []
+  responses:
+      200:
+        description: successful operation
+        content:
+          apllication/json:
+            schema:
+              $ref: '#/components/schemas/Success'
+      500:
+        description: Internal server error
+        content:
+          apllication/json:
+            schema:
+              $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    Success:
+      type: object
+      properties:
+        message:
+          type: string
+          description: 닉네임 중복체크 성공 메세지
+          example: 'AVAILABLE_NICKNAME'
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+          description: 닉네임 중복체크 실패 메세지
+          example: '(THIS_EMAIL)_IS_NICKNAME_THAT_ALREADY_EXSITS'
