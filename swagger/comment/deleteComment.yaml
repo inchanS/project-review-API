@@ -1,0 +1,45 @@
+delete:
+  tags:
+    - Comment
+  summary: 댓글 삭제
+  description: 댓글 삭제 API
+  produces:
+    - application/json
+  security:
+    - BearerAuth: []
+  parameters:
+    - in: path
+      name: commentId
+      description: 댓글의 ID
+      required: true
+      schema:
+        type: integer
+  responses:
+    200:
+      description: successful operation
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/SuccessDeleteComment'
+    500:
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            $ref: './index.yaml#/components/schemas/ErrorCommentNotFound'
+    401:
+      description: Invalid token
+      content:
+        application/json:
+          schema:
+            $ref: './index.yaml#/components/schemas/ErrorInvalidTokenWithComment'
+
+components:
+  schemas:
+    SuccessDeleteComment:
+      type: object
+      properties:
+        message:
+          type: string
+          description: 댓글 삭제 성공시 메세지
+          example: THIS_COMMENT_HAS_BEEN_SUCCESSFULLY_DELETED

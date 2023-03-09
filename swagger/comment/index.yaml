@@ -1,0 +1,175 @@
+post:
+  tags:
+    - Comment
+  summary: 댓글 작성
+  description: 댓글 작성 API
+  produces:
+    - application/json
+  security:
+    - BearerAuth: []
+  requestBody:
+    description: 댓글 작성시 필요한 정보
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: '#/components/schemas/CreateComment'
+  responses:
+    200:
+      description: successful operation
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Success'
+    500:
+      description: Internal server error
+      content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Error'
+    401:
+      description: Invalid token
+      content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ErrorInvalidToken'
+
+patch:
+  tags:
+    - Comment
+  summary: 댓글 수정
+  description: 댓글 수정 API
+  produces:
+    - application/json
+  security:
+    - BearerAuth: []
+  requestBody:
+    description: 댓글 수정시 필요한 정보
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: '#/components/schemas/UpdateComment'
+  responses:
+    200:
+      description: successful operation
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/SuccessUpdateComment'
+    500:
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorUpdateComment'
+    401:
+      description: Invalid token
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorInvalidTokenWithComment'
+
+components:
+  schemas:
+    CreateComment:
+      type: object
+      properties:
+        feed:
+          type: integer
+          description: 댓글을 작성할 게시글의 ID
+          example: 1
+        content:
+          type: string
+          description: 댓글 내용
+          example: '댓글 내용'
+        is_private:
+          type: boolean
+          description: 댓글 공개 여부 (기본값 false)
+          required: false
+          example: true
+    Success:
+      type: object
+      properties:
+        message:
+          type: string
+          description: 댓글 작성 성공시 메세지
+          example: THIS_COMMENT_HAS_BEEN_SUCCESSFULLY_CREATED
+    Error:
+      type: object
+      properties:
+        message:
+          type: object
+          description: 댓글 작성 실패시 메세지
+          properties:
+            isString:
+              type: string
+              description: 댓글 내용이 문자열이 아닐 경우
+              example: comment must be a string
+            isNotEmpty:
+                type: string
+                description: 댓글 내용이 비어있을 경우
+                example: comment should not be empty
+    ErrorInvalidToken:
+      type: object
+      properties:
+        message:
+          type: string
+          description: 유효하지 않은 토큰일 경우
+          example: INVALID_TOKEN
+    UpdateComment:
+      type: object
+      properties:
+        commentId:
+          type: integer
+          description: 댓글의 ID
+          example: 1
+        content:
+          type: string
+          description: 댓글 내용
+          example: '댓글 내용'
+        is_private:
+          type: boolean
+          description: 댓글 공개 여부 (기본값 false)
+          required: false
+          example: true
+    SuccessUpdateComment:
+      type: object
+      properties:
+        message:
+          type: string
+          description: 댓글 수정 성공시 메세지
+          example: THIS_COMMENT_HAS_BEEN_SUCCESSFULLY_UPDATED
+
+    ErrorUpdateComment:
+      type: object
+      oneOf:
+        - $ref: '#/components/schemas/ErrorCommentNotFound'
+        - $ref: '#/components/schemas/ErrorCommentNotChanged'
+    ErrorCommentNotFound:
+      type: object
+      properties:
+        message:
+          type: string
+          description: 댓글이 존재하지 않을 경우
+          example: ID_217_COMMENT_DOES_NOT_EXIST
+    ErrorCommentNotChanged:
+      type: object
+      properties:
+        message:
+          type: string
+          description: 댓글이 수정내용이 없을 경우
+          example: COMMENT_IS_NOT_CHANGED
+
+    ErrorInvalidTokenWithComment:
+      type: object
+      oneOf:
+        - $ref: '#/components/schemas/ErrorInvalidToken'
+        - $ref: '#/components/schemas/ErrorInvalidTokenAndAuth'
+    ErrorInvalidTokenAndAuth:
+      type: object
+      properties:
+        message:
+          type: string
+          description: 댓글 작성자가 아닐 경우
+          example: ONLY_THE_AUTHOR_CAN_EDIT

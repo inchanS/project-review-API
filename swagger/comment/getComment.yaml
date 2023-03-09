@@ -1,0 +1,142 @@
+get:
+  tags:
+    - Comment
+  summary: 댓글 목록 조회
+  description: 댓글 목록 조회 API
+  produces:
+    - application/json
+  security:
+    - BearerAuth: []
+  parameters:
+    - in: path
+      name: feedId
+      description: 게시글의 ID
+      required: true
+      schema:
+        type: integer
+  responses:
+    200:
+      description: successful operation
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/SuccessGetComment'
+    500:
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            $ref: './index.yaml#/components/schemas/ErrorCommentNotFound'
+    401:
+      description: Invalid token
+      content:
+        application/json:
+          schema:
+            $ref: './index.yaml#/components/schemas/ErrorInvalidTokenWithComment'
+
+components:
+  schemas:
+    SuccessGetComment:
+      type: array
+      description: 댓글 목록
+      items:
+        type: object
+        properties:
+          id:
+            type: integer
+            description: 댓글의 ID
+            example: 1
+          createdAt:
+            type: string
+            description: 댓글 작성 시간
+            example: '2021-08-01T00:00:00.000Z'
+          updatedAt:
+            type: string
+            description: 댓글 수정 시간
+            example: '2021-08-01T00:00:00.000Z'
+          deletedAt:
+            type: string
+            description: 댓글 삭제 시간
+            example: '2021-08-01T00:00:00.000Z'
+          user:
+            type: object
+            description: 댓글 작성자 정보
+            properties:
+              id:
+                type: integer
+                description: 댓글 작성자의 ID
+                example: 1
+              nickname:
+                type: string
+                description: 댓글 작성자의 닉네임
+                example: '닉네임'
+              email:
+                type: string
+                description: 댓글 작성자의 이메일
+                example: 'sea@heaven.com'
+          feed:
+            type: object
+            description: 댓글이 작성된 게시글 정보
+            properties:
+              id:
+                type: integer
+                description: 댓글이 작성된 게시글의 ID
+                example: 1
+              title:
+                type: string
+                description: 댓글이 작성된 게시글의 제목
+                example: '게시글 제목'
+          comment:
+            type: string
+            description: 댓글 내용
+            example: '댓글 내용'
+          is_private:
+            type: boolean
+            description: 댓글 공개 여부
+            example: true
+          children:
+            type: array
+            description: 대댓글 목록
+            items:
+              type: object
+              properties:
+                id:
+                  type: integer
+                  description: 대댓글의 ID
+                  example: 1
+                createdAt:
+                  type: string
+                  description: 대댓글 작성 시간
+                  example: '2021-08-01T00:00:00.000Z'
+                updatedAt:
+                  type: string
+                  description: 대댓글 수정 시간
+                  example: '2021-08-01T00:00:00.000Z'
+                deletedAt:
+                  type: string
+                  description: 대댓글 삭제 시간
+                  example: '2021-08-01T00:00:00.000Z'
+                user:
+                  type: object
+                  description: 대댓글 작성자 정보
+                  properties:
+                    id:
+                      type: integer
+                      description: 대댓글 작성자의 ID
+                      example: 1
+                    nickname:
+                      type: string
+                      description: 대댓글 작성자의 닉네임
+                      example: '닉네임'
+                    email:
+                      type: string
+                      description: 대댓글 작성자의 이메일
+                      example: 'email@email.com'
+                comment:
+                  type: string
+                  description: 대댓글 내용
+                  example: '대댓글 내용'
+                is_private:
+                  type: boolean
+                  description: 대댓글 공개 여부
+                  example: true

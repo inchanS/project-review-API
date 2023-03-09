@@ -26,3 +26,9 @@ paths:
     $ref: "./user/checkEmail.yaml"
   /users/getme:
     $ref: "./user/getMe.yaml"
+  /comments:
+    $ref: "./comment/index.yaml"
+  /comments/{feedId}:
+    $ref: "./comment/getComment.yaml"
+  /comments/{commentId}:
+    $ref: "./comment/deleteComment.yaml"
