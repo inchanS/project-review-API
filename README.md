@@ -52,9 +52,9 @@ API response는 `JSON` 형식으로 반환됩니다.
 ##### description
 사용자가 회원가입시 사용하는 API입니다.  
 ##### Request
-| method | Endpoint | require |description |
-| --- | --- | --- |
-| `POST` | `/api/user/signup` | 사용자가 회원가입시 사용하는 API입니다. |
+| method | Endpoint        |  description              |
+| --- |-----------------|--------------------------|
+| `POST` | `/users/signup` |  사용자가 회원가입시 사용하는 API입니다. |
 ##### Request Body
 | name | type   | require | description |
 | --- |--------|------|---------------------|
@@ -71,9 +71,9 @@ API response는 `JSON` 형식으로 반환됩니다.
 ##### description
 사용자가 로그인시 사용하는 API입니다.
 ##### Request
-| method | Endpoint | description |
-| --- |------------------------------|
-| `POST` | `/api/user/signin` | 사용자가 로그인시 사용하는 API입니다. |
+| method | Endpoint        | description |
+|--- |-----------------|------------------------------|
+| `POST` | `/users/signin` | 사용자가 로그인시 사용하는 API입니다. |
 ##### Request Body
 | name | type | require         | description |
 | --- |--------|-----------------|------------|
@@ -83,4 +83,145 @@ API response는 `JSON` 형식으로 반환됩니다.
 | 상태 코드 | description |
 | --- |------------------------------|
 | `200` | 처리가 성공적으로 이루어졌음을 나타냅니다. |
+| `500` | 내부 서버 오류가 발생하였습니다. |
+#### 3.1.3. check nickname for user sign up
+##### description
+사용자가 회원가입시 닉네임 중복을 확인하는 API입니다.
+##### Request
+| method | Endpoint                                   | description |
+|--- |--------------------------------------------|------------------------------|
+| `GET` | `/users/checknickname` | 사용자가 회원가입시 닉네임 중복을 확인하는 API입니다. |
+##### Request Query
+| name | type | require         | description |
+| --- |--------|-----------------|------------|
+| nickname | `string` | `true`            | 사용자의 닉네임   |
+##### Response
+| 상태 코드 | description |
+| --- |------------------------------|
+| `200` | 처리가 성공적으로 이루어졌음을 나타냅니다. |
+| `500` | 내부 서버 오류가 발생하였습니다. |
+#### 3.1.4. check email for user sign up
+##### description
+사용자가 회원가입시 이메일 중복을 확인하는 API입니다.
+##### Request
+| method | Endpoint                                   | description |
+|--- |--------------------------------------------|------------------------------|
+| `GET` | `/users/checkemail` | 사용자가 회원가입시 이메일 중복을 확인하는 API입니다. |
+##### Request Query
+| name | type | require         | description |
+| --- |--------|-----------------|------------|
+| email | `string` | `true`            | 사용자의 이메일   |
+##### Response
+| 상태 코드 | description |
+| --- |------------------------------|
+| `200` | 처리가 성공적으로 이루어졌음을 나타냅니다. |
+| `500` | 내부 서버 오류가 발생하였습니다. |
+
+#### 3.1.5. User - get me
+##### description
+사용자가 자신의 정보를 조회할 때 사용하는 API입니다.
+##### Request
+| method | Endpoint        | description |
+|--- |-----------------|------------------------------|
+| `GET` | `/users/me` | 사용자가 자신의 정보를 조회할 때 사용하는 API입니다. |
+#### Request Header
+| name | type | require         | description |
+| token | `string` | `true`            | 사용자의 토큰   |
+##### Response
+| 상태 코드 | description |
+| --- |------------------------------|
+| `200` | 처리가 성공적으로 이루어졌음을 나타냅니다. |
+| `500` | 내부 서버 오류가 발생하였습니다. |
+
+### 3.2. Comment
+#### 3.2.1. Comment Create
+##### description
+사용자가 댓글을 작성할 때 사용하는 API입니다.  
+##### Request
+| method | Endpoint           | description |
+|--- |--------------------|------------------------------|
+| `POST` | `/api/comment` | 사용자가 댓글을 작성할 때 사용하는 API입니다. |
+#### Request Header
+| name | type | require         | description |
+| --- |--------|-----------------|------------|
+| token | `string` | `true`            | 사용자의 토큰   |
+
+##### Request Body
+| name | type | require         | description |
+| --- |--------|-----------------|------------|
+| content | `string` | `true`            | 댓글의 내용   |
+| is_private | `boolean` | `false` | 댓글의 공개 여부 - 미입력시 기본값 `false` |
+
+##### Response
+| 상태 코드 | description |
+| --- |------------------------------|
+| `201` | 처리가 성공적으로 이루어졌음을 나타냅니다. |
+| `401` | 사용자의 토큰이 유효하지 않습니다. |
+| `500` | 내부 서버 오류가 발생하였습니다. |
+
+#### 3.2.2. Comment Update
+##### description
+사용자가 자신이 작성한 댓글을 수정할 때 사용하는 API입니다.
+##### Request
+| method  | Endpoint                | description |
+|---------|-------------------------|------------------------------|
+| `PATCH` | `/api/comment` | 사용자가 자신이 작성한 댓글을 수정할 때 사용하는 API입니다. |
+##### Request Header
+| name | type | require         | description |
+| --- |--------|-----------------|------------|
+| token | `string` | `true`    | 사용자의 토큰   |
+
+##### Request Body
+| name | type | require         | description |
+| --- |--------|-----------------|------------|
+| content | `string` | `true`            | 댓글의 내용   |
+| is_private | `boolean` | `false` | 댓글의 공개 여부 - 미입력시 기본값 `false` |
+##### Response
+| 상태 코드 | description |
+| --- |------------------------------|
+| `200` | 처리가 성공적으로 이루어졌음을 나타냅니다. |
+| `401` | 사용자가 댓글을 수정할 권한이 없습니다. |
+| `500` | 내부 서버 오류가 발생하였습니다. |
+
+#### 3.2.3. Comment Read
+##### description
+사용자가 게시글별 작성된 댓글들을 읽을 때 사용하는 API입니다.
+##### Request
+| method | Endpoint                | description |
+|--- |-------------------------|------------------------------|
+| `GET` | `/api/comment/{feedId}` | 사용자가 댓글을 읽을 때 사용하는 API입니다. |
+##### Request Header
+| name | type | require         | description |
+| --- |--------|-----------------|------------|
+| token | `string` | `true`            | 사용자의 토큰   |
+##### Request Path Parameter
+| name   | type | require         | description |
+|--------|--------|-----------------|------------|
+| feedId | `integer` | `true`            | 게시글의 id   |
+##### Response
+| 상태 코드 | description |
+| --- |------------------------------|
+| `200` | 처리가 성공적으로 이루어졌음을 나타냅니다. |
+| `500` | 내부 서버 오류가 발생하였습니다. |
+
+#### 3.2.4. Comment Delete
+##### description
+사용자가 자신이 작성한 댓글을 삭제할 때 사용하는 API입니다.
+##### Request
+| method | Endpoint                | description |
+|--- |-------------------------|------------------------------|
+| `DELETE` | `/api/comment/{commentId}` | 사용자가 자신이 작성한 댓글을 삭제할 때 사용하는 API입니다. |
+##### Request Header
+| name | type | require         | description |
+| --- | --- | ---- | -------------------------|
+| token | `string` | `true` | 사용자의 토큰 |
+##### Request Path Parameter
+| name | type | require | description |
+| --- | --- | --- | --- |
+| commentId | `integer` | `true` | 댓글의 id |
+##### Response
+| 상태 코드 | description |
+| --- | --- |
+| `200` | 처리가 성공적으로 이루어졌음을 나타냅니다. |
+| `401` | 사용자가 댓글을 삭제할 권한이 없습니다. |
 | `500` | 내부 서버 오류가 발생하였습니다. |

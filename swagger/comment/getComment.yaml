@@ -27,12 +27,6 @@ get:
         application/json:
           schema:
             $ref: './index.yaml#/components/schemas/ErrorCommentNotFound'
-    401:
-      description: Invalid token
-      content:
-        application/json:
-          schema:
-            $ref: './index.yaml#/components/schemas/ErrorInvalidTokenWithComment'
 
 components:
   schemas:
