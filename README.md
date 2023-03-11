@@ -12,6 +12,13 @@
   - [3.1. User](#31-user)  
         - [3.1.1. User Sign Up](#311-user-sign-up)  
         - [3.1.2. User Sign In](#312-user-sign-in)  
+        - [3.1.3. check nickname for user sign up](#313-check-nickname-for-user-sign-up)  
+        - [ 3.1.4. check email for user sign up](#314-check-email-for-user-sign-up)  
+  - [3.2. Comment](#32-comment)  
+        - [3.2.1. Create Comment](#321-create-comment)  
+        - [3.2.2. Update Comment](#322-update-comment)  
+        - [3.2.3. Delete Comment](#323-read-comment)  
+        - [3.2.4. Get Comment](#324-delete-comment)
 
 ## 1. Introduction
 이 문서는 미니프로젝트 팀의 project-review 개발간 필요한 프론트엔드용 API 문서입니다.  
@@ -24,7 +31,7 @@ API endpoint는 `http://localhost:8000`을 기본으로 합니다.
 프론트엔드 팀은 이 endpoint를 사용하여 백엔드 팀이 제공하는 API를 사용할 수 있습니다.
 
 ### 2.2. How to use API
-Node.js를 사용하는 `http-server`를 설치하고, `http-server`를 사용하여 API를 테스트할 수 있습니다.
+Node.js를 사용하는 `http-server`를 설치하고, `http-server`를 사용하여 API를 확인 및 테스트할 수 있습니다.
 설치 방법은 다음과 같습니다.
 1. 이 repository를 적당한 위치에 clone합니다.
 2. `http-server`를 설치합니다. 아래 명령어를 통해 설치할 수 있습니다.
@@ -84,6 +91,7 @@ API response는 `JSON` 형식으로 반환됩니다.
 | --- |------------------------------|
 | `200` | 처리가 성공적으로 이루어졌음을 나타냅니다. |
 | `500` | 내부 서버 오류가 발생하였습니다. |
+
 #### 3.1.3. check nickname for user sign up
 ##### description
 사용자가 회원가입시 닉네임 중복을 확인하는 API입니다.
@@ -100,6 +108,7 @@ API response는 `JSON` 형식으로 반환됩니다.
 | --- |------------------------------|
 | `200` | 처리가 성공적으로 이루어졌음을 나타냅니다. |
 | `500` | 내부 서버 오류가 발생하였습니다. |
+
 #### 3.1.4. check email for user sign up
 ##### description
 사용자가 회원가입시 이메일 중복을 확인하는 API입니다.
@@ -134,7 +143,7 @@ API response는 `JSON` 형식으로 반환됩니다.
 | `500` | 내부 서버 오류가 발생하였습니다. |
 
 ### 3.2. Comment
-#### 3.2.1. Comment Create
+#### 3.2.1. Create Comment
 ##### description
 사용자가 댓글을 작성할 때 사용하는 API입니다.  
 ##### Request
@@ -159,7 +168,7 @@ API response는 `JSON` 형식으로 반환됩니다.
 | `401` | 사용자의 토큰이 유효하지 않습니다. |
 | `500` | 내부 서버 오류가 발생하였습니다. |
 
-#### 3.2.2. Comment Update
+#### 3.2.2. Update Comment
 ##### description
 사용자가 자신이 작성한 댓글을 수정할 때 사용하는 API입니다.
 ##### Request
@@ -183,7 +192,7 @@ API response는 `JSON` 형식으로 반환됩니다.
 | `401` | 사용자가 댓글을 수정할 권한이 없습니다. |
 | `500` | 내부 서버 오류가 발생하였습니다. |
 
-#### 3.2.3. Comment Read
+#### 3.2.3. Read Comment
 ##### description
 사용자가 게시글별 작성된 댓글들을 읽을 때 사용하는 API입니다.
 ##### Request
@@ -204,7 +213,7 @@ API response는 `JSON` 형식으로 반환됩니다.
 | `200` | 처리가 성공적으로 이루어졌음을 나타냅니다. |
 | `500` | 내부 서버 오류가 발생하였습니다. |
 
-#### 3.2.4. Comment Delete
+#### 3.2.4. Delete Comment
 ##### description
 사용자가 자신이 작성한 댓글을 삭제할 때 사용하는 API입니다.
 ##### Request
