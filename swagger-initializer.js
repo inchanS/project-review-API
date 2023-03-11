@@ -9,6 +9,7 @@ window.onload = function () {
     presets: [SwaggerUIBundle.presets.apis, SwaggerUIStandalonePreset],
     plugins: [SwaggerUIBundle.plugins.DownloadUrl],
     layout: 'StandaloneLayout',
+    defaultModelExpandDepth: 9,
   });
 
   //</editor-fold>
