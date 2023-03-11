@@ -49,15 +49,18 @@ components:
           createdAt:
             type: string
             description: 댓글 작성 시간
-            example: '2021-08-01T00:00:00.000Z'
+            example: '2021-08-01 00:00:00'
           updatedAt:
             type: string
             description: 댓글 수정 시간
-            example: '2021-08-01T00:00:00.000Z'
+            example: '2021-08-01 00:00:00'
           deletedAt:
-            type: string
-            description: 댓글 삭제 시간
-            example: '2021-08-01T00:00:00.000Z'
+            oneOf:
+              - type: null
+                example: null
+              - type: string
+                description: 댓글 삭제 시간
+                example: '2021-08-02 00:00:00'
           user:
             type: object
             description: 댓글 작성자 정보
@@ -107,15 +110,18 @@ components:
                 createdAt:
                   type: string
                   description: 대댓글 작성 시간
-                  example: '2021-08-01T00:00:00.000Z'
+                  example: '2021-08-01 00:00:00'
                 updatedAt:
                   type: string
                   description: 대댓글 수정 시간
-                  example: '2021-08-01T00:00:00.000Z'
+                  example: '2021-08-01 00:00:00'
                 deletedAt:
-                  type: string
-                  description: 대댓글 삭제 시간
-                  example: '2021-08-01T00:00:00.000Z'
+                  oneOf:
+                    - type: string
+                      description: 댓글 삭제 시간
+                      example: '2021-08-02 00:00:00'
+                    - type: null
+                      example: null
                 user:
                   type: object
                   description: 대댓글 작성자 정보
@@ -140,3 +146,44 @@ components:
                   type: boolean
                   description: 대댓글 공개 여부
                   example: true
+                children:
+                  type: array
+                  description: 대댓글의 대댓글 목록
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        description: 대댓글의 대댓글의 ID
+                        example: 1
+                      createdAt:
+                        type: string
+                        description: 대댓글의 대댓글 작성 시간
+                        example: '2021-08-01 00:00:00'
+                      updatedAt:
+                        type: string
+                        description: 대댓글의 대댓글 수정 시간
+                        example: '2021-08-01 00:00:00'
+                      deletedAt:
+                        oneOf:
+                          - type: string
+                            description: 댓글 삭제 시간
+                            example: '2021-08-02 00:00:00'
+                          - type: null
+                            example: null
+                      user:
+                        type: object
+                        description: 대댓글의 대댓글 작성자 정보
+                        properties:
+                          id:
+                            type: integer
+                            description: 대댓글의 대댓글 작성자의 ID
+                            example: 1
+                          nickname:
+                            type: string
+                            description: 대댓글의 대댓글 작성자의 닉네임
+                            example: '닉네임'
+                          email:
+                            type: string
+                            description: 대댓글의 대댓글 작성자의 이메일
+                            example: 'testemail@email.co.kr'
