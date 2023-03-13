@@ -1,0 +1,33 @@
+get:
+  tags:
+    - Symbol
+  summary: 심볼 조회
+  description: 심볼 조회 API
+  produces:
+    - application/json
+  responses:
+    200:
+      description: successful operation
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/SuccessGetSymbol'
+
+components:
+  schemas:
+    SuccessGetSymbol:
+      type: array
+      items:
+        type: object
+        properties:
+          id:
+            type: integer
+            description: 심볼 ID
+          symbol:
+            type: string
+            description: 심볼 종류
+      example:
+        - id: 1
+          symbol: 'like'
+        - id: 2
+          symbol: 'I have this too'

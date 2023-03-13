@@ -764,3 +764,448 @@ paths:
               type: string
               description: 댓글 삭제 성공시 메세지
               example: THIS_COMMENT_HAS_BEEN_SUCCESSFULLY_DELETED
+  /categories:
+    get:
+      tags:
+        - category
+      summary: 카테고리 확인
+      description: 현재 존재하는 카테고리 확인 API
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1categories/components/schemas/SuccessGetCategory'
+    components:
+      schemas:
+        SuccessGetCategory:
+          type: array
+          description: 카테고리 목록
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+                description: 카테고리의 ID
+              name:
+                type: string
+                description: 카테고리의 이름
+          example:
+            - id: 1
+              name: 1 category
+            - id: 2
+              name: 2 category
+            - id: 3
+              name: 3 category
+  /symbols:
+    get:
+      tags:
+        - Symbol
+      summary: 심볼 조회
+      description: 심볼 조회 API
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1symbols/components/schemas/SuccessGetSymbol'
+    components:
+      schemas:
+        SuccessGetSymbol:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+                description: 심볼 ID
+              symbol:
+                type: string
+                description: 심볼 종류
+          example:
+            - id: 1
+              symbol: like
+            - id: 2
+              symbol: I have this too
+  '/symbols/{feedId}':
+    post:
+      tags:
+        - Symbol
+      summary: 심볼 추가 및 수정
+      description: 리뷰를 보는 사용자가 각 게시글에 대하야 좋아요 등의 심볼을 추가 및 수정하는 API
+      produces:
+        - application/json
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: feedId
+          description: 피드 ID
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        description: 심볼 추가 및 수정
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/paths/~1symbols~1%7BfeedId%7D/components/schemas/RequestAddAndUpdateSymbol'
+      responses:
+        '200':
+          description: 심볼 수정 성공
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1symbols~1%7BfeedId%7D/components/schemas/RequestUpdateSymbol'
+        '201':
+          description: 심볼 추가 성공
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1symbols~1%7BfeedId%7D/components/schemas/RequestAddSymbol'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/paths/~1symbols~1%7BfeedId%7D/components/schemas/ErrorValidateFeed'
+                  - $ref: '#/paths/~1symbols~1%7BfeedId%7D/components/schemas/ErrorValidateAuthor'
+                  - $ref: '#/paths/~1symbols~1%7BfeedId%7D/components/schemas/ErrorValidateSymbol'
+                  - $ref: '#/paths/~1symbols~1%7BfeedId%7D/components/schemas/ErrorNotChanged'
+                  - $ref: '#/paths/~1symbols~1%7BfeedId%7D/components/schemas/ErrorDuplicateSymbol'
+    get:
+      tags:
+        - Symbol
+      summary: 게시글별 심볼 총 개수 조회
+      description: 게시글별 심볼 총 개수 조회 API
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: feedId
+          description: 피드 ID
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: 게시글별 심볼 총 개수 조회 성공
+          content:
+            application/json:
+              schema:
+                type: array
+                description: 게시글의 심볼 목록별 총 개수
+                items:
+                  type: object
+                  properties:
+                    feedId:
+                      type: integer
+                      description: 피드 ID
+                    symbolId:
+                      type: integer
+                      description: 심볼 ID
+                    symbol:
+                      type: string
+                      description: 심볼 종류
+                    count:
+                      type: integer
+                      description: 심볼 개수
+                example:
+                  - feedId: 4
+                    symbolId: 2
+                    symbol: I have this too
+                    count: 2
+                  - feedId: 4
+                    symbolId: 1
+                    symbol: like
+                    count: 2
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1symbols~1%7BfeedId%7D/components/schemas/ErrorValidateFeed'
+    delete:
+      tags:
+        - Symbol
+      summary: 심볼 삭제
+      description: 심볼 삭제 API
+      produces:
+        - application/json
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: feedId
+          description: 피드 ID
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: 심볼 삭제 성공
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1symbols~1%7BfeedId%7D/components/schemas/SuccessDeleteSymbol'
+        '401':
+          description: 유효하지 않은 토큰
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1symbols~1%7BfeedId%7D/components/schemas/ErrorValidateToken'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1symbols~1%7BfeedId%7D/components/schemas/ErrorValidateFeedSymbol'
+    components:
+      schemas:
+        RequestAddAndUpdateSymbol:
+          type: object
+          properties:
+            symbolId:
+              type: integer
+              description: 심볼 ID
+          example:
+            symbolId: 1
+        RequestAddSymbol:
+          type: object
+          description: 심볼 추가 성공
+          properties:
+            message:
+              type: string
+              description: 심볼 추가 성공 메시지
+              example: SYMBOL_ID_2_HAS_BEEN_ADDED_TO_THE_FEED_ID_4
+            result:
+              type: array
+              description: 게시글의 심볼 목록별 총 개수
+              items:
+                type: object
+                properties:
+                  feedId:
+                    type: integer
+                    description: 피드 ID
+                  symbolId:
+                    type: integer
+                    description: 심볼 ID
+                  symbol:
+                    type: string
+                    description: 심볼 종류
+                  count:
+                    type: integer
+                    description: 심볼 개수
+              example:
+                - feedId: 4
+                  symbolId: 2
+                  symbol: I have this too
+                  count: 1
+                - feedId: 4
+                  symbolId: 1
+                  symbol: like
+                  count: 3
+        RequestUpdateSymbol:
+          type: object
+          description: 심볼 수정 성공
+          properties:
+            message:
+              type: string
+              description: 심볼 변경 성공 메시지
+              example: SYMBOL_ID_2_HAS_BEEN_UPDATED_TO_THE_FEED_ID_4
+            result:
+              type: array
+              description: 게시글의 심볼 목록별 총 개수
+              items:
+                type: object
+                properties:
+                  feedId:
+                    type: integer
+                    description: 피드 ID
+                  symbolId:
+                    type: integer
+                    description: 심볼 ID
+                  symbol:
+                    type: string
+                    description: 심볼 종류
+                  count:
+                    type: integer
+                    description: 심볼 개수
+              example:
+                - feedId: 4
+                  symbolId: 2
+                  symbol: I have this too
+                  count: 2
+                - feedId: 4
+                  symbolId: 1
+                  symbol: like
+                  count: 2
+        ErrorValidateFeed:
+          type: object
+          properties:
+            message:
+              type: string
+              description: '게시물이 존재하지 않거나 삭제되었거나, 유효하지 않을 경우'
+              example: INVALID_FEED
+        ErrorValidateAuthor:
+          type: object
+          properties:
+            message:
+              type: string
+              description: '공감 수정시, 원 공감 작성자가 아닐 경우'
+              example: THE_AUTHOR_OF_THE_POST_CANNOT_EMPATHIZE
+        ErrorValidateSymbol:
+          type: object
+          properties:
+            message:
+              type: string
+              description: 심볼이 존재하지 않을 경우
+              example: INVALID_SYMBOL
+        ErrorNotChanged:
+          type: object
+          properties:
+            message:
+              type: string
+              description: 심볼이 변경되지 않았을 경우
+              example: NOT_CHANGED
+        ErrorDuplicateSymbol:
+          type: object
+          properties:
+            message:
+              type: string
+              description: NOT_CHANGED 에러와 별개로 공감이 DB에 중복 추가되었을 경우
+              example: DUPLICATE_FEED_SYMBOL
+        SuccessDeleteSymbol:
+          type: object
+          properties:
+            message:
+              type: string
+              description: 심볼 삭제 성공 메시지
+              example: SYMBOL_REMOVED_FROM_4_FEED
+            result:
+              type: array
+              description: '심볼 삭제 후, 현재 게시글의 심볼 목록별 총 개수'
+              items:
+                type: object
+                properties:
+                  feedId:
+                    type: integer
+                    description: 피드 ID
+                  symbolId:
+                    type: integer
+                    description: 심볼 ID
+                  symbol:
+                    type: string
+                    description: 심볼 종류
+                  count:
+                    type: integer
+                    description: 심볼 개수
+              example:
+                - feedId: 4
+                  symbolId: 2
+                  symbol: I have this too
+                  count: 1
+                - feedId: 4
+                  symbolId: 1
+                  symbol: like
+                  count: 3
+        ErrorValidateFeedSymbol:
+          type: object
+          properties:
+            message:
+              type: string
+              description: '삭제하려는 게시글별 공감이 존재하지 않거나, 유효하지 않을 경우'
+              example: FEED_SYMBOL_NOT_FOUND
+        ErrorValidateToken:
+          type: object
+          properties:
+            message:
+              type: string
+              description: 토큰이 유효하지 않을 때 반환되는 에러 메시지
+              example: INVALID_TOKEN
+  '/symbols/check/{feedId}':
+    get:
+      tags:
+        - Symbol
+      summary: 심볼 여부 조회
+      description: 게시글에 대한 현재 로그인 사용자의 심볼 여부를 조회하는 API
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: feedId
+          description: 피드 ID
+          required: true
+          schema:
+            type: integer
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: 심볼 조회 성공
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1symbols~1check~1%7BfeedId%7D/components/schemas/ResponseCheckSymbol'
+        '401':
+          description: 유효하지 않은 토큰
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1symbols~1check~1%7BfeedId%7D/components/schemas/ErrorValidateToken'
+    components:
+      schemas:
+        ResponseCheckSymbol:
+          type: object
+          properties:
+            checkValue:
+              type: string
+              description: 심볼 체크 여부 (true or false)
+              example: true
+            result:
+              type: object
+              description: 사용자의 게시글에 대한 심볼 정보
+              properties:
+                symbolId:
+                  type: integer
+                  description: 심볼 ID
+                  example: 1
+                created_at:
+                  type: string
+                  description: 심볼 생성 시간
+                  example: '2023-03-14 02:19:55.969026'
+                updated_at:
+                  type: string
+                  description: 심볼 수정 시간
+                  example: '2023-03-14 02:19:55.969026'
+                deleted_at:
+                  type: string
+                  description: 심볼 삭제 시간 (삭제되지 않은 경우 null)
+                  example: null
+                user:
+                  type: number
+                  description: 심볼을 추가한 사용자 ID
+                  example: 1
+                feed:
+                  type: number
+                  description: 심볼을 추가한 피드 ID
+                  example: 1
+                symbol:
+                  type: number
+                  description: 심볼 ID
+                  example: 1
+        ErrorValidateToken:
+          type: object
+          properties:
+            message:
+              type: string
+              description: 토큰이 유효하지 않을 때 반환되는 에러 메시지
+              example: INVALID_TOKEN

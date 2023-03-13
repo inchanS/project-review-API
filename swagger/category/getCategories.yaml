@@ -1,0 +1,36 @@
+get:
+  tags:
+    - category
+  summary: 카테고리 확인
+  description: 현재 존재하는 카테고리 확인 API
+  produces:
+    - application/json
+  responses:
+    200:
+      description: successful operation
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/SuccessGetCategory'
+
+components:
+  schemas:
+    SuccessGetCategory:
+      type: array
+      description: 카테고리 목록
+      items:
+        type: object
+        properties:
+          id:
+            type: integer
+            description: 카테고리의 ID
+          name:
+            type: string
+            description: 카테고리의 이름
+      example:
+        - id: 1
+          name: '1 category'
+        - id: 2
+          name: '2 category'
+        - id: 3
+          name: '3 category'

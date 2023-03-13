@@ -26,7 +26,7 @@ get:
       content:
         application/json:
           schema:
-            $ref: './index.yaml#/components/schemas/ErrorCommentNotFound'
+            $ref: './createAndUpdate.yaml#/components/schemas/ErrorCommentNotFound'
 
 components:
   schemas:
