@@ -155,6 +155,8 @@ API response는 `JSON` 형식으로 반환됩니다.
 #### 3.2.1. Create Comment
 ##### description
 사용자가 댓글을 작성할 때 사용하는 API입니다.  
+댓글 작성시 `is_private`을 `true`로 설정하면 해당 댓글은 작성자만 볼 수 있습니다.   
+댓글 작성시 `parent`를 설정하면 대댓글로 작성됩니다.  
 ##### Request
 | method | Endpoint           | description |
 |--- |--------------------|------------------------------|
@@ -169,6 +171,7 @@ API response는 `JSON` 형식으로 반환됩니다.
 | --- |--------|-----------------|------------|
 | content | `string` | `true`            | 댓글의 내용   |
 | is_private | `boolean` | `false` | 댓글의 공개 여부 - 미입력시 기본값 `false` |
+| parent | `number` | `false` | 댓글의 부모 댓글의 id - 미입력시 기본값 `null` |
 
 ##### Response
 | 상태 코드 | description |
