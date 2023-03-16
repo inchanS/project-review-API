@@ -167,11 +167,11 @@ API response는 `JSON` 형식으로 반환됩니다.
 | token | `string` | `true`            | 사용자의 토큰   |
 
 ##### Request Body
-| name | type | require         | description |
-| --- |--------|-----------------|------------|
-| content | `string` | `true`            | 댓글의 내용   |
+| name       | type | require         | description |
+|------------|--------|-----------------|------------|
+| comment    | `string` | `true`            | 댓글의 내용   |
 | is_private | `boolean` | `false` | 댓글의 공개 여부 - 미입력시 기본값 `false` |
-| parent | `number` | `false` | 댓글의 부모 댓글의 id - 미입력시 기본값 `null` |
+| parent     | `number` | `false` | 댓글의 부모 댓글의 id - 미입력시 기본값 `null` |
 
 ##### Response
 | 상태 코드 | description |
@@ -195,7 +195,7 @@ API response는 `JSON` 형식으로 반환됩니다.
 ##### Request Body
 | name | type | require         | description |
 | --- |--------|-----------------|------------|
-| content | `string` | `true`            | 댓글의 내용   |
+| comment | `string` | `true`            | 댓글의 내용   |
 | is_private | `boolean` | `false` | 댓글의 공개 여부 - 미입력시 기본값 `false` |
 ##### Response
 | 상태 코드 | description |

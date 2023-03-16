@@ -448,7 +448,7 @@ paths:
               type: integer
               description: 댓글을 작성할 게시글의 ID
               example: 1
-            content:
+            comment:
               type: string
               description: 댓글 내용
               example: 댓글 내용
@@ -498,7 +498,7 @@ paths:
               type: integer
               description: 댓글의 ID
               example: 1
-            content:
+            comment:
               type: string
               description: 댓글 내용
               example: 댓글 내용
