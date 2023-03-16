@@ -55,6 +55,17 @@ Node.js를 사용하는 `http-server`를 설치하고, `http-server`를 사용�
    - `http://localhost:8080`으로 접속하면 다음과 같은 화면을 볼 수 있습니다.
    - 또는 폴더내 `index.html`을 열어도 동일한 화면을 볼 수 있습니다.  
        ![http-server](./images/webscreenshot.png)
+5. API 명세서 확인 및 테스트 페이지에서는 다음과 같은 기능을 사용할 수 있습니다.
+   - API 명세서 확인
+   - API 테스트
+   - API 테스트 결과 확인
+   - API 테스트 결과 저장
+   - API 테스트 결과 로드
+6. API 테스트시, 서버를 선택하여 테스트할 수 있습니다.  
+   ![choice-server 1](./images/Pasted image 20230316232545.png)  
+   위 화면에서 화살표 부분을 클릭하면 다음과 같은 화면을 볼 수 있습니다.  
+   &nbsp;
+   ![choice-server 2](./images/SCR-20230316-udpo.png)  
 
 ### 2.2. API Request
 API request는 `GET`, `POST`, `PUT`, `DELETE` method를 사용합니다.
