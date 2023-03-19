@@ -892,6 +892,18 @@ paths:
             application/json:
               schema:
                 $ref: '#/paths/~1symbols~1%7BfeedId%7D/components/schemas/RequestAddSymbol'
+        '400':
+          description: Bad Request (변경사항이 없을 때)
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1symbols~1%7BfeedId%7D/components/schemas/ErrorNotChanged'
+        '403':
+          description: 본인의 게시글에 공감을 추가할 때 (사용자의 게시글에는 공감을 추가할 수 없습니다.)
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1symbols~1%7BfeedId%7D/components/schemas/ErrorValidateAuthor'
         '500':
           description: Internal Server Error
           content:
@@ -899,9 +911,7 @@ paths:
               schema:
                 oneOf:
                   - $ref: '#/paths/~1symbols~1%7BfeedId%7D/components/schemas/ErrorValidateFeed'
-                  - $ref: '#/paths/~1symbols~1%7BfeedId%7D/components/schemas/ErrorValidateAuthor'
                   - $ref: '#/paths/~1symbols~1%7BfeedId%7D/components/schemas/ErrorValidateSymbol'
-                  - $ref: '#/paths/~1symbols~1%7BfeedId%7D/components/schemas/ErrorNotChanged'
                   - $ref: '#/paths/~1symbols~1%7BfeedId%7D/components/schemas/ErrorDuplicateSymbol'
     get:
       tags:
@@ -1097,7 +1107,7 @@ paths:
             message:
               type: string
               description: 심볼이 변경되지 않았을 경우
-              example: NOT_CHANGED
+              example: NOT_CHANGED_FEED_SYMBOL
         ErrorDuplicateSymbol:
           type: object
           properties:

@@ -34,6 +34,18 @@ post:
         application/json:
           schema:
             $ref: '#/components/schemas/RequestUpdateSymbol'
+    400:
+      description: Bad Request (변경사항이 없을 때)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorNotChanged'
+    403:
+      description:  본인의 게시글에 공감을 추가할 때 (사용자의 게시글에는 공감을 추가할 수 없습니다.)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorValidateAuthor'
     500:
       description: Internal Server Error
       content:
@@ -41,9 +53,7 @@ post:
           schema:
             oneOf:
               - $ref: '#/components/schemas/ErrorValidateFeed'
-              - $ref: '#/components/schemas/ErrorValidateAuthor'
               - $ref: '#/components/schemas/ErrorValidateSymbol'
-              - $ref: '#/components/schemas/ErrorNotChanged'
               - $ref: '#/components/schemas/ErrorDuplicateSymbol'
 
 get:
@@ -244,7 +254,7 @@ components:
         message:
           type: string
           description: 심볼이 변경되지 않았을 경우
-          example: NOT_CHANGED
+          example: NOT_CHANGED_FEED_SYMBOL
     ErrorDuplicateSymbol:
       type: object
       properties:
