@@ -28,6 +28,8 @@ paths:
     $ref: "./user/checkEmail.yaml"
   /users/getme:
     $ref: "./user/getMe.yaml"
+  /users/userinfo/{userId}:
+    $ref: "./user/getUserInfo.yaml"
 
   /comments:
     $ref: "./comment/createAndUpdate.yaml"
@@ -45,3 +47,12 @@ paths:
     $ref: "./symbol/addAndUpdatesymbolToFeed.yaml"
   /symbols/check/{feedId}:
     $ref: "./symbol/checkSymbol.yaml"
+
+  /feeds/temp:
+    $ref: "./feed/tempFeed.yaml"
+
+#  /feeds/post:
+#    $ref: "./feed/postFeed.yaml"
+
+#  /upload:
+#    $ref: "./upload/uploadImage.yaml"

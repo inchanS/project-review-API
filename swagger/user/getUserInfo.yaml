@@ -1,13 +1,21 @@
 get:
   tags:
     - User
-  summary: 로그인한 유저의 모든 정보 보기
-  description: 로그인한 유저의 ID, 가입일, 닉네임, 이메일과 게시글 목록, 댓글 목록을 반환합니다.<br>
-    **토큰을 필요로 합니다.**
+  summary: 타겟 유저의 정보 보기
+  description: 타겟 유저의 ID, 가입일, 닉네임, 이메일과 게시글 목록, 댓글 목록을 반환합니다.<br>
+    **토큰은 없어도 되지만, <BR>  
+    타겟 유저와 로그인 유저간의 관련된 비공개 정보는 볼 수 없습니다.**
   produces:
     - application/json
   security:
     - BearerAuth: []
+  parameters:
+    - in: params
+      name: userId
+      description: 타겟 유저의 ID
+      required: true
+      schema:
+          type: integer
   responses:
       200:
         description: successful operation
