@@ -40,7 +40,9 @@ post:
     description: |  
       게시글 임시저장시, 필요한 body 정보  
       모든 항목은 **required: false** 입니다.  
-      하지만 **항목 중 하나 이상의 값을 반드시 입력**해야 합니다.
+      하지만 **항목 중 하나 이상의 값을 반드시 입력**해야 합니다.  
+      
+      임시저장 게시글의 제목을 입력하지 않으면 getTempFeed API에서는 최종 자동저장 시간으로 대체됩니다.
     required: true
     content:
       application/json:
@@ -193,6 +195,15 @@ post:
                           is_img: false
                           file_link: "https://image2.com/docu.pdf"
 
+patch:
+  tags:
+    - 임시저장 게시글
+  summary: 임시저장 게시글 수정
+  description: |  
+    임시저장 게시글을 수정하는 API입니다.  
+    **자동저장**시 사용됩니다.  
+    임시저장 게시글의 제목을 입력하지 않으면 getTempFeed API에서는 최종 자동저장 시간으로 대체됩니다.  
+  
 
 
 components:
