@@ -1,0 +1,137 @@
+get:
+  tags:
+    - Feed
+  summary: 게시글 및 임시저장글 가져오기 (피드 상세보기)
+  description: |  
+    feedId값의 게시글을 가져옵니다.  
+    토큰은 필수가 아닙니다.  
+    
+    임시저장 게시글의 경우,  
+    Authorization 헤더에 **Bearer 토큰**을 넣어주세요.    
+    임시저장 게시글은 기본적으로 게시되지 않은 비공개글이기에 토큰 사용자와 게시글 작성자가 일치해야 합니다.
+  produces:
+    - application/json
+  security:
+    - BearerAuth: []
+  parameters:
+    - in: path
+      name: feedId
+      description: 게시글 ID
+      required: true
+      schema:
+        type: integer
+  responses:
+    200:
+      description: successful operation
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/SuccessGetFeed'
+    404:
+      description: Not Found
+    500:
+      description: Internal Server Error
+
+components:
+  schemas:
+    SuccessGetFeed:
+      type: object
+      properties:
+        message:
+          type: string
+          description: success message
+          example: check feed success
+        result:
+          type: object
+          properties:
+            feedId:
+              type: integer
+              description: 게시글 ID
+              example: 1
+            created_at:
+              type: string
+              description: 게시글 생성 시간
+              example: 2021-05-01 00:00:00
+            updated_at:
+                type: string
+                description: 게시글 수정 시간
+                example: 2021-05-01 00:00:00
+            user:
+              type: object
+              properties:
+                userId:
+                  type: integer
+                  description: 유저 ID
+                  example: 1
+                nickname:
+                    type: string
+                    description: 유저 닉네임
+                    example: inchan
+            title:
+              type: string
+              description: 게시글 제목
+              example: 게시글 제목입니다.
+            content:
+              type: string
+              description: 게시글 내용
+              example: 게시글 내용입니다.
+            viewCnt:
+              type: integer
+              description: 게시글 조회수
+              example: 1
+            estimation:
+              type: object
+              desctiption: 작성자가 리뷰를 하며 평가한 정보
+              properties:
+                id:
+                  type: integer
+                  description: 평가 ID
+                  example: 1
+                estimation:
+                  type: string
+                  description: 평가 종류
+                  example: like
+            category:
+              type: object
+              description: 게시글 카테고리
+              properties:
+                id:
+                  type: integer
+                  description: 카테고리 ID
+                  example: 1
+                category:
+                  type: string
+                  description: 카테고리 이름
+                  example: 카테고리 이름
+            status:
+              type: object
+              description: 게시글 상태
+              properties:
+                id:
+                  type: integer
+                  description: 상태 ID
+                  example: 1
+                is_status:
+                  type: string
+                  description: 상태 이름 (published, temporary, deleted)
+                  example: published
+            posted_at:
+              type: string
+              description: 게시글 게시 시간
+              example: 2021-05-01 00:00:00
+            uploadFiles:
+              type: object
+              description: 게시글에 업로드된 파일
+              properties:
+                id:
+                  type: integer
+                  description: 파일 ID
+                  example: 1
+                is_img:
+                  type: boolean
+                  description: 이미지 여부
+                  example: true
+                file_link:
+                  type: string
+                  description: 파일 URL
+                  example: https://s3.ap-northeast-2.amazonaws.com/project-review-bucket/1620000000000.png
