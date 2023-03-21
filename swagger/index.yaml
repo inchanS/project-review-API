@@ -60,5 +60,5 @@ paths:
 #  /feeds/post:
 #    $ref: "./feed/postFeed.yaml"
 
-#  /upload:
-#    $ref: "./upload/uploadImage.yaml"
+  /upload:
+    $ref: "./uploadFiles/upload.yaml"

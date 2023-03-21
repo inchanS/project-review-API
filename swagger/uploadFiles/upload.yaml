@@ -1,0 +1,119 @@
+post:
+  tags:
+    - upload
+  summary: file upload (multiple)
+  description: |  
+    게시글 작성에 앞서 이미지 및 문서 파일을 업로드할 때 사용할 수 있습니다.
+  produces:
+    - application/json
+  security:
+    - BearerAuth: []
+  requestBody:
+    required: true
+    description: |  
+      파일 업로드 저장시, 필요한 body 정보입니다.    
+      한번에 여러 개의 파일을 업로드 할 수 있습니다.  
+      
+      파일은 **한번의 API 요청으로 5개까지** 업로드할 수 있습니다.  
+      파일의 크기는 개당 **5MB**까지 업로드할 수 있습니다.    
+      
+      이미지의 경우 업로드시,  
+      width가 1920px 이상일 경우, 1920px로 비율 리사이징하여 업로드합니다.
+    content:
+      multipart/form-data:
+        schema:
+          type: object
+          properties:
+            file:
+              type: array
+              items:
+                type: string
+                format: binary
+  responses:
+    200:
+      description: Files uploaded successfully
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              file_link:
+                type: array
+                items:
+                  type: string
+                  example:
+                    - https://s3.ap-northeast-2.amazonaws.com/project-review-bucket/1620000000000.jpeg
+                    - https://s3.ap-northeast-2.amazonaws.com/project-review-bucket/1620000000001.pdf
+    500:
+      description: Internal Server Error (Schema에서 종류 확인!)
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                oneOf:
+                  - type: string
+                    example: Internal Server Error
+                  - type: string
+                    example: file too large
+                  - type: string
+                    example: "UPLOAD_FILE_FAIL: 에러메세지"
+
+delete:
+  tags:
+    - upload
+  summary: file delete
+  description: |  
+    업로드한 파일을 삭제합니다.
+  produces:
+    - application/json
+  security:
+    - BearerAuth: []
+  requsetBody:
+    required: true
+    description: |  
+      파일 삭제시, 필요한 body 정보입니다.    
+      한번에 여러 개의 파일을 삭제할 수 있습니다.
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            file_link:
+              type: array
+              items:
+                type: string
+                example:
+                  - https://s3.ap-northeast-2.amazonaws.com/project-review-bucket/1620000000000.jpeg
+                  - https://s3.ap-northeast-2.amazonaws.com/project-review-bucket/1620000000001.pdf
+  responses:
+    204:
+      description: Files deleted successfully (No Content)
+    404:
+      description: 지우려는 파일이 존재하지 않습니다.
+      content:
+        application/json:
+          schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                  example: NOT_FOUND_UPLOAD_FILE
+    500:
+      description: Internal Server Error (Schema에서 종류 확인!)
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                oneOf:
+                  - type: string
+                    example: Internal Server Error
+                  - type: string
+                    description: 파일이 S3에 존재하지 않습니다.
+                    example: "DELETE_UPLOADED_FILE_IS_NOT_EXISTS: ${err}"
+                  - type: string
+                    description: S3에 파일 삭제 명령에 실패했습니다.
+                    example: "AWS_SEND_COMMAND_FILE_FAIL: ${err}"
