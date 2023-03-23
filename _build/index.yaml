@@ -53,15 +53,23 @@ paths:
           properties:
             nickname:
               type: string
-              description: The nickname of the user
+              description: |
+                사용자의 닉네임입니다.
+                중복되지 않아야 합니다. (중복검사 사용 추천)
               example: 블랙팬서
             email:
               type: string
-              description: The email of the user
+              description: |
+                사용자의 이메일입니다.  
+                중복되지 않아야 합니다. (중복검사 사용 추천)
               example: black@test.com
             password:
               type: string
-              description: The password of the user
+              description: |
+                사용자의 비밀번호입니다.  
+                비밀번호는 **8자 이상 20자 이하**로 설정해야 합니다.  
+                비밀번호는 영문이어야 하며 **소문자, 대문자, 숫자, 특수문자**를 모두 포함해야 합니다.  
+                비밀번호는 공백을 포함할 수 없습니다.
               example: Abcd@1234
         Success:
           type: object
@@ -77,69 +85,6 @@ paths:
               type: string
               description: 가입 실패시 메세지
               example: (THIS_EMAIL)_IS_MAIL_THAT_ALREADY_EXSITS
-  /users/signin:
-    post:
-      tags:
-        - User
-      summary: 회원 로그인
-      description: 회원 로그인 관련 API
-      produces:
-        - application/json
-      requestBody:
-        description: 회원 로그인시 필요한 사용자 정보 객체
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/paths/~1users~1signin/components/schemas/User'
-      responses:
-        '200':
-          description: successful operation
-          content:
-            application/json:
-              schema:
-                $ref: '#/paths/~1users~1signin/components/schemas/Success'
-        '500':
-          description: Internal server error
-          content:
-            application/json:
-              schema:
-                $ref: '#/paths/~1users~1signin/components/schemas/Error'
-    components:
-      schemas:
-        User:
-          type: object
-          properties:
-            email:
-              type: string
-              description: The email of the user
-              example: black@test.com
-            password:
-              type: string
-              description: The password of the user
-              example: Abcd@1234
-        Success:
-          type: object
-          properties:
-            message:
-              type: string
-              description: 로그인 성공 메세지
-              example: SIGNIN_SUCCESS
-            result:
-              type: object
-              description: 로그인 성공시 토큰값
-              properties:
-                token:
-                  type: string
-                  description: 토큰값
-                  example: 'token: ''eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTYsImlhdCI6MTY3ODEyOTY0OX0.eyNOFEZt5xPSakzy4FyGqub9heSZA5FtOZGtWyTI4vg'''
-        Error:
-          type: object
-          properties:
-            message:
-              type: string
-              description: 로그인 실패시 메세지
-              example: (THIS_EMAIL)_IS_NOT_FOUND
   /users/checknickname:
     get:
       tags:
@@ -228,7 +173,70 @@ paths:
               type: string
               description: 이메일 중복체크 실패 메세지
               example: (THIS_EMAIL)_IS_EMAIL_THAT_ALREADY_EXSITS
-  /users/getme:
+  /users/signin:
+    post:
+      tags:
+        - User
+      summary: 회원 로그인
+      description: 회원 로그인 관련 API
+      produces:
+        - application/json
+      requestBody:
+        description: 회원 로그인시 필요한 사용자 정보 객체
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/paths/~1users~1signin/components/schemas/User'
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1users~1signin/components/schemas/Success'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1users~1signin/components/schemas/Error'
+    components:
+      schemas:
+        User:
+          type: object
+          properties:
+            email:
+              type: string
+              description: The email of the user
+              example: black@test.com
+            password:
+              type: string
+              description: The password of the user
+              example: Abcd@1234
+        Success:
+          type: object
+          properties:
+            message:
+              type: string
+              description: 로그인 성공 메세지
+              example: SIGNIN_SUCCESS
+            result:
+              type: object
+              description: 로그인 성공시 토큰값
+              properties:
+                token:
+                  type: string
+                  description: 토큰값
+                  example: 'token: ''eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTYsImlhdCI6MTY3ODEyOTY0OX0.eyNOFEZt5xPSakzy4FyGqub9heSZA5FtOZGtWyTI4vg'''
+        Error:
+          type: object
+          properties:
+            message:
+              type: string
+              description: 로그인 실패시 메세지
+              example: (THIS_EMAIL)_IS_NOT_FOUND
+  /users/userinfo:
     get:
       tags:
         - User
@@ -244,15 +252,141 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/paths/~1users~1getme/components/schemas/Success'
+                $ref: '#/paths/~1users~1userinfo/components/schemas/Success'
         '401':
           description: Unauthorized
           content:
             application/json:
               schema:
-                $ref: '#/paths/~1users~1getme/components/schemas/ErrorInvalidToken'
+                $ref: '#/paths/~1users~1userinfo/components/schemas/ErrorInvalidToken'
         '500':
           description: Internal server error
+    patch:
+      tags:
+        - User
+      summary: 사용자 정보 수정
+      description: |
+        사용자 정보를 수정할 수 있는 API입니다.  
+        nickname, email, password를 수정할 수 있습니다.  
+        nickname, email은 중복되지 않아야 합니다.(중복시 에러 반환)  
+        수정하고자 하는 정보는 body에 담아서 보내야 합니다.  
+        수정하고자 하는 정보가 일부라면 해당 정보만 보내면 됩니다.
+      security:
+        - bearerAuth: []
+      requestBody:
+        description: |
+          수정하고자 하는 정보를 담아서 보내야 합니다.  
+          수정하고자 하는 정보가 일부라면 해당 정보만 보내면 됩니다.
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nickname:
+                  type: string
+                  required: false
+                  description: |
+                    사용자의 닉네임입니다.  
+                    중복되지 않아야 합니다.
+                email:
+                  type: string
+                  required: false
+                  description: |
+                    사용자의 이메일입니다.  
+                    중복되지 않아야 합니다.
+                password:
+                  type: string
+                  required: false
+                  description: |
+                    사용자의 비밀번호입니다.  
+                    비밀번호는 8자 이상 20자 이하로 설정해야 합니다.  
+                    비밀번호는 영문이어야 하며 소문자, 대문자, 숫자, 특수문자를 모두 포함해야 합니다.  
+                    비밀번호는 공백을 포함할 수 없습니다.
+      responses:
+        '200':
+          description: |
+            사용자 정보 수정에 성공했을 때 반환됩니다.  
+            수정된 사용자 정보를 반환합니다.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: 성공 메시지입니다.
+                    example: UPDATE_USERINFO_SUCCESS
+                  result:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        description: 사용자의 고유 id입니다.
+                        example: 1
+                      created_at:
+                        type: string
+                        description: 사용자의 생성일입니다.
+                        example: 2021-08-01T00:00:00.000Z
+                      updated_at:
+                        type: string
+                        description: 사용자의 수정일입니다.
+                        example: 2021-08-01T00:00:00.000Z
+                      deleted_at:
+                        type: null
+                        description: 사용자의 삭제일입니다.
+                        example: null
+                      nickname:
+                        type: string
+                        description: 사용자의 닉네임입니다.
+                        example: testNickname
+                      email:
+                        type: string
+                        description: 사용자의 이메일입니다.
+                        example: test@test.com
+        '400':
+          description: |
+            사용자 정보 수정에 실패했을 때 반환됩니다.  
+            비밀번호를 수정하지 않으면서, 닉네임과 이메일의 수정된 내용이 기존 값과 같을 때 반환됩니다.
+            에러 메시지를 반환합니다.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: 에러 메시지입니다.
+                    example: NO_CHANGE
+        '409':
+          description: |
+            사용자 정보 수정에 실패했을 때 반환됩니다.  
+            닉네임 또는 이메일이 중복될 때 반환됩니다.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    oneOf:
+                      - type: string
+                        description: 닉네임 중복시 에러 메시지입니다.
+                        example: (input)_IS_NICKNAME_THAT_ALREADY_EXSITS
+                      - type: string
+                        description: 이메일 중복시 에러 메시지입니다.
+                        example: (input)_IS_EMAIL_THAT_ALREADY_EXSITS
+        '500':
+          description: |
+            사용자 정보 수정에 실패했을 때 반환됩니다.  
+            서버의 에러로 인해 수정에 실패했을 때 에러를 반환합니다.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: 에러 메시지입니다.
+                    example: INTERNAL_SERVER_ERROR
     components:
       schemas:
         Success:
