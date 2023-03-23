@@ -549,6 +549,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/paths/~1comments/components/schemas/ErrorInvalidToken'
+        '404':
+          description: Feed not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1comments/components/schemas/ErrorFeedNotFound'
         '500':
           description: Internal server error
           content:
@@ -696,6 +702,13 @@ paths:
               type: string
               description: 댓글 작성자가 아닐 경우
               example: ONLY_THE_AUTHOR_CAN_EDIT
+        ErrorFeedNotFound:
+          type: object
+          properties:
+            message:
+              type: string
+              description: 게시글이 존재하지 않을 경우
+              example: COMMENT'S_FEED_VALIDATION_ERROR
   '/comments/{feedId}':
     get:
       tags:

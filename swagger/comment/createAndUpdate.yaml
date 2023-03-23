@@ -37,6 +37,12 @@ post:
           application/json:
             schema:
               $ref: '#/components/schemas/ErrorInvalidToken'
+    404:
+      description: Feed not found
+      content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ErrorFeedNotFound'
 
 patch:
   tags:
@@ -183,3 +189,10 @@ components:
           description: 댓글 작성자가 아닐 경우
           example: ONLY_THE_AUTHOR_CAN_EDIT
 
+    ErrorFeedNotFound:
+      type: object
+      properties:
+        message:
+          type: string
+          description: 게시글이 존재하지 않을 경우
+          example: COMMENT'S_FEED_VALIDATION_ERROR
