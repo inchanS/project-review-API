@@ -51,11 +51,13 @@ paths:
   /feeds/temp:
     $ref: "./tempFeed/tempFeed.yaml"
 
-#  /feeds:
-#    $ref: "./feed/getFeedList.yaml"
+  /feeds:
+    $ref: "./feed/getFeedList.yaml"
 
   /feeds/{feedId}:
     $ref: "./feed/getFeed.yaml"
+  /feeds/estimations:
+    $ref: "./feed/getEstimations.yaml"
 
 #  /feeds/post:
 #    $ref: "./feed/postFeed.yaml"

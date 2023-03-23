@@ -16,13 +16,13 @@ post:
     200:
       description: successful operation
       content:
-        apllication/json:
+        application/json:
           schema:
             $ref: '#/components/schemas/Success'
     500:
       description: Internal server error
       content:
-          apllication/json:
+          application/json:
             schema:
               $ref: '#/components/schemas/Error'
 components:

@@ -1,0 +1,35 @@
+get:
+  tags:
+    - Feed
+  summary: 리뷰 평가 아이콘 ID 조회
+  description: 리뷰 평가 아이콘 ID 조회
+  produces:
+    - application/json
+  responses:
+    200:
+      description: successful operation
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/SuccessGetEstimations'
+    500:
+      description: Internal Server Error
+
+components:
+  schemas:
+    SuccessGetEstimations:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: 평가 아이콘 ID
+        estimation:
+          type: string
+          description: 평가 아이콘
+      example:
+        - id: 1
+          estimation: double like
+        - id: 2
+          estimation: like
+        - id: 3
+          estimation: dislike

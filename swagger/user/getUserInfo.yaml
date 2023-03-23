@@ -20,13 +20,13 @@ get:
       200:
         description: successful operation
         content:
-          apllication/json:
+          application/json:
             schema:
               $ref: '#/components/schemas/Success'
       401:
         description: Unauthorized
         content:
-          apllication/json:
+          application/json:
             schema:
               $ref: '#/components/schemas/ErrorInvalidToken'
       500:

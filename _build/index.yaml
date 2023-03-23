@@ -37,13 +37,13 @@ paths:
         '201':
           description: successful operation
           content:
-            apllication/json:
+            application/json:
               schema:
                 $ref: '#/paths/~1users~1signup/components/schemas/Success'
         '500':
           description: Internal server error
           content:
-            apllication/json:
+            application/json:
               schema:
                 $ref: '#/paths/~1users~1signup/components/schemas/Error'
     components:
@@ -96,13 +96,13 @@ paths:
         '200':
           description: successful operation
           content:
-            apllication/json:
+            application/json:
               schema:
                 $ref: '#/paths/~1users~1signin/components/schemas/Success'
         '500':
           description: Internal server error
           content:
-            apllication/json:
+            application/json:
               schema:
                 $ref: '#/paths/~1users~1signin/components/schemas/Error'
     components:
@@ -159,13 +159,13 @@ paths:
         '200':
           description: successful operation
           content:
-            apllication/json:
+            application/json:
               schema:
                 $ref: '#/paths/~1users~1checknickname/components/schemas/Success'
         '500':
           description: Internal server error
           content:
-            apllication/json:
+            application/json:
               schema:
                 $ref: '#/paths/~1users~1checknickname/components/schemas/Error'
     components:
@@ -203,13 +203,13 @@ paths:
         '200':
           description: successful operation
           content:
-            apllication/json:
+            application/json:
               schema:
                 $ref: '#/paths/~1users~1checkemail/components/schemas/Success'
         '500':
           description: Internal server error
           content:
-            apllication/json:
+            application/json:
               schema:
                 $ref: '#/paths/~1users~1checkemail/components/schemas/Error'
     components:
@@ -242,13 +242,13 @@ paths:
         '200':
           description: successful operation
           content:
-            apllication/json:
+            application/json:
               schema:
                 $ref: '#/paths/~1users~1getme/components/schemas/Success'
         '401':
           description: Unauthorized
           content:
-            apllication/json:
+            application/json:
               schema:
                 $ref: '#/paths/~1users~1getme/components/schemas/ErrorInvalidToken'
         '500':
@@ -389,13 +389,13 @@ paths:
         '200':
           description: successful operation
           content:
-            apllication/json:
+            application/json:
               schema:
                 $ref: '#/paths/~1users~1userinfo~1%7BuserId%7D/components/schemas/Success'
         '401':
           description: Unauthorized
           content:
-            apllication/json:
+            application/json:
               schema:
                 $ref: '#/paths/~1users~1userinfo~1%7BuserId%7D/components/schemas/ErrorInvalidToken'
         '500':
@@ -1688,6 +1688,139 @@ paths:
               type: string
               description: 에러 메시지
               example: Internal Server Error
+  /feeds:
+    get:
+      tags:
+        - Feed
+      summary: 게시글 목록 가져오기
+      description: |
+        게시글 목록을 가져옵니다.
+      produces:
+        - application/json
+      parameters:
+        - in: query
+          name: categoryId
+          description: 카테고리 (query가 없으면 전체 카테고리가 반환됩니다.)
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: page
+          description: 페이지 번호 (query가 없으면 1페이지(첫페이지)가 반환됩니다.)
+          required: false
+          schema:
+            type: integer
+        - in: query
+          name: limit
+          description: 한 페이지에 보여줄 게시글 수 (query가 없거나 0으로 전달되면 **default 값 10**으로 처리되어 반환됩니다.)
+          required: false
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1feeds/components/schemas/SuccessGetFeedList'
+        '500':
+          description: Internal Server Error
+    components:
+      schemas:
+        SuccessGetFeedList:
+          type: object
+          properties:
+            id:
+              type: integer
+              description: 게시글 id
+            categoryId:
+              type: string
+              description: 카테고리 id
+            category:
+              type: string
+              description: 카테고리 이름
+            userId:
+              type: integer
+              description: 유저 id
+            userNickname:
+              type: string
+              description: 유저 닉네임
+            title:
+              type: string
+              description: 게시글 제목
+            content:
+              type: string
+              description: 게시글 내용
+            imgUrl:
+              type: string
+              description: 게시글 대표 이미지의 url
+            viewCnt:
+              type: integer
+              description: 조회수
+            commentCnt:
+              type: integer
+              description: 댓글수
+            likeCnt:
+              type: integer
+              description: 좋아요수
+            filesCnt:
+              type: integer
+              description: 첨부파일수 (이미지 파일은 제외됩니다.)
+            imgCnt:
+              type: integer
+              description: 이미지 파일수
+            createdAt:
+              type: string
+              description: 게시글 생성일
+            updatedAt:
+              type: string
+              description: 게시글 수정일
+            postedAt:
+              type: string
+              description: 게시글 게시일
+            deletedAt:
+              type: string
+              description: 게시글 삭제일
+            statusId:
+              type: integer
+              description: 게시글 상태 id
+          example:
+            - id: 1
+              categoryId: 1
+              category: 자유
+              userId: 1
+              userNickname: inchan
+              title: 첫번째 게시글
+              content: 첫번째 게시글 내용
+              imgUrl: 'https://i.imgur.com/1j2j3j4.jpg'
+              viewCnt: 0
+              commentCnt: 0
+              likeCnt: 0
+              filesCnt: 0
+              imgCnt: 1
+              createdAt: '2021-07-01 00:00:00'
+              updatedAt: '2021-07-01 00:00:00'
+              postedAt: '2021-07-01 00:00:00'
+              deletedAt: null
+              statusId: 1
+            - id: 2
+              categoryId: 2
+              category: 질문
+              userId: 1
+              userNickname: inchan
+              title: 두번째 게시글
+              content: 두번째 게시글 내용
+              imgUrl: 'https://i.imgur.com/1j2j3j4.jpg'
+              viewCnt: 200
+              commentCnt: 0
+              likeCnt: 3
+              filesCnt: 1
+              imgCnt: 2
+              createdAt: '2021-07-01 00:00:00'
+              updatedAt: '2021-07-01 00:00:00'
+              postedAt: '2021-07-01 00:00:00'
+              deletedAt: null
+              statusId: 1
   '/feeds/{feedId}':
     get:
       tags:
@@ -1825,6 +1958,41 @@ paths:
                       type: string
                       description: 파일 URL
                       example: 'https://s3.ap-northeast-2.amazonaws.com/project-review-bucket/1620000000000.png'
+  /feeds/estimations:
+    get:
+      tags:
+        - Feed
+      summary: 리뷰 평가 아이콘 ID 조회
+      description: 리뷰 평가 아이콘 ID 조회
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1feeds~1estimations/components/schemas/SuccessGetEstimations'
+        '500':
+          description: Internal Server Error
+    components:
+      schemas:
+        SuccessGetEstimations:
+          type: object
+          properties:
+            id:
+              type: integer
+              description: 평가 아이콘 ID
+            estimation:
+              type: string
+              description: 평가 아이콘
+          example:
+            - id: 1
+              estimation: double like
+            - id: 2
+              estimation: like
+            - id: 3
+              estimation: dislike
   /upload:
     post:
       tags:
