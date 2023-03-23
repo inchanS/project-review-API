@@ -20,14 +20,14 @@ components:
 paths:
   /users/signup:
     $ref: "./user/signUp.yaml"
-  /users/signin:
-    $ref: "./user/signIn.yaml"
   /users/checknickname:
     $ref: "./user/checkNickname.yaml"
   /users/checkemail:
     $ref: "./user/checkEmail.yaml"
-  /users/getme:
-    $ref: "./user/getMe.yaml"
+  /users/signin:
+    $ref: "./user/signIn.yaml"
+  /users/userinfo:
+    $ref: "./user/userInfo.yaml"
   /users/userinfo/{userId}:
     $ref: "./user/getUserInfo.yaml"
 

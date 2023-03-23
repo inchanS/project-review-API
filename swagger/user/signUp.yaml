@@ -32,15 +32,23 @@ components:
       properties:
         nickname:
           type: string
-          description: The nickname of the user
+          description: |  
+            사용자의 닉네임입니다.
+            중복되지 않아야 합니다. (중복검사 사용 추천)
           example: '블랙팬서'
         email:
           type: string
-          description: The email of the user
+          description: |  
+            사용자의 이메일입니다.  
+            중복되지 않아야 합니다. (중복검사 사용 추천)
           example: 'black@test.com'
         password:
           type: string
-          description: The password of the user
+          description: |
+            사용자의 비밀번호입니다.  
+            비밀번호는 **8자 이상 20자 이하**로 설정해야 합니다.  
+            비밀번호는 영문이어야 하며 **소문자, 대문자, 숫자, 특수문자**를 모두 포함해야 합니다.  
+            비밀번호는 공백을 포함할 수 없습니다.
           example: 'Abcd@1234'
     Success:
       type: object
