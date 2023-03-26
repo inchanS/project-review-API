@@ -26,13 +26,13 @@ delete:
       content:
         application/json:
           schema:
-            $ref: './createAndUpdate.yaml#/components/schemas/ErrorCommentNotFound'
+            $ref: './index.yaml#/components/schemas/ErrorCommentNotFound'
     401:
       description: Invalid token
       content:
         application/json:
           schema:
-            $ref: './createAndUpdate.yaml#/components/schemas/ErrorInvalidTokenWithComment'
+            $ref: './index.yaml#/components/schemas/ErrorInvalidTokenWithComment'
 
 components:
   schemas:

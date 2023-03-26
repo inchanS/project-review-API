@@ -32,35 +32,31 @@ paths:
     $ref: "./user/getUserInfo.yaml"
 
   /comments:
-    $ref: "./comment/createAndUpdate.yaml"
+    $ref: "./comment/index.yaml"
   /comments/{feedId}:
     $ref: "./comment/getComment.yaml"
   /comments/{commentId}:
     $ref: "./comment/deleteComment.yaml"
 
   /categories:
-    $ref: "./category/getCategories.yaml"
+    $ref: "./category/index.yaml"
 
   /symbols:
     $ref: "./symbol/getSymbols.yaml"
   /symbols/{feedId}:
-    $ref: "./symbol/addAndUpdatesymbolToFeed.yaml"
+    $ref: "./symbol/addAndUpdateSymbolToFeed.yaml"
   /symbols/check/{feedId}:
     $ref: "./symbol/checkSymbol.yaml"
 
   /feeds/temp:
-    $ref: "./tempFeed/tempFeed.yaml"
+    $ref: "./tempFeed/index.yaml"
 
   /feeds:
-    $ref: "./feed/getFeedList.yaml"
-
+    $ref: "./feed/index.yaml"
   /feeds/{feedId}:
-    $ref: "./feed/getFeed.yaml"
+    $ref: "./feed/getAndDeleteFeed.yaml"
   /feeds/estimations:
     $ref: "./feed/getEstimations.yaml"
 
-#  /feeds/post:
-#    $ref: "./feed/postFeed.yaml"
-
   /upload:
-    $ref: "./uploadFiles/upload.yaml"
+    $ref: "./uploadFiles/index.yaml"
