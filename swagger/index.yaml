@@ -30,6 +30,8 @@ paths:
     $ref: "./user/userInfo.yaml"
   /users/userinfo/{userId}:
     $ref: "./user/getUserInfo.yaml"
+  /users/password:
+    $ref: "./user/resetPassword.yaml"
 
   /comments:
     $ref: "./comment/index.yaml"
