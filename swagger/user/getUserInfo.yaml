@@ -10,12 +10,12 @@ get:
   security:
     - BearerAuth: []
   parameters:
-    - in: params
+    - in: path
       name: userId
-      description: 타겟 유저의 ID
+      description: 타겟유저의 ID
       required: true
       schema:
-          type: integer
+        type: integer
   responses:
       200:
         description: successful operation
