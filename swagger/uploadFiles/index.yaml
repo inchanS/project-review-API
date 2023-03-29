@@ -70,7 +70,7 @@ delete:
     - application/json
   security:
     - BearerAuth: []
-  requsetBody:
+  requestBody:
     required: true
     description: |  
       파일 삭제시, 필요한 body 정보입니다.    
