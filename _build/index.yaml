@@ -1700,10 +1700,6 @@ paths:
             schema:
               type: object
               properties:
-                categoryId:
-                  type: integer | null
-                  description: 카테고리 ID
-                  required: false
                 title:
                   type: string
                   description: 게시글 제목
@@ -1725,7 +1721,6 @@ paths:
                   description: 카테고리 ID
                   required: false
               example:
-                categoryId: 1
                 title: 게시글 제목
                 content: 게시글 내용
                 fileLinks:
