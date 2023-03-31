@@ -2539,7 +2539,7 @@ paths:
               schema:
                 type: object
                 properties:
-                  file_link:
+                  file_links:
                     type: array
                     items:
                       type: string
@@ -2591,7 +2591,7 @@ paths:
             schema:
               type: object
               properties:
-                file_link:
+                file_links:
                   type: array
                   items:
                     type: string

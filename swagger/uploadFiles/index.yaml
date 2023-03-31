@@ -37,7 +37,7 @@ post:
           schema:
             type: object
             properties:
-              file_link:
+              file_links:
                 type: array
                 items:
                   type: string
@@ -90,7 +90,7 @@ delete:
         schema:
           type: object
           properties:
-            file_link:
+            file_links:
               type: array
               items:
                 type: string
