@@ -111,26 +111,10 @@ post:
                         type: integer
                         description: 사용자 ID
                         example: 1
-                      created_at:
-                        type: string
-                        description: 사용자 정보 생성 시간
-                        example: 2023-03-20 21:13:06.972880
-                      updated_at:
-                        type: string
-                        description: 사용자 정보 수정 시간
-                        example: 2023-03-20 21:13:06.972880
-                      deleted_at:
-                        type: string | null
-                        description: 사용자 정보 삭제 시간
-                        example: null
                       nickname:
                         type: string
                         description: 사용자 닉네임
                         example: "nickname"
-                      email:
-                        type: string
-                        description: 사용자 이메일
-                        example: "test@gmail.com"
                   title:
                     type: string | null
                     description: 임시저장 게시글 제목
@@ -139,18 +123,38 @@ post:
                     type: string | null
                     description: 임시저장 게시글 내용
                     example: "이 상품은 정말 좋아요! 추천합니다. 그ㄹ던데"
+                  viewCnt:
+                    type: number
+                    description: 게시글 조회수
+                    example: 0
                   category:
-                    type: number | null
+                    type: object | null
                     description: 임시저장 게시글 카테고리 ID
-                    example: 2
+                    properties:
+                      id:
+                        type: number
+                        description: category ID
+                        example: 1
+                      category:
+                        type: string
+                        description: category 종류
+                        example: "전자기기"
                   posted_at:
                     type: string | null
                     description: 임시저장 게시글 게시 시간
                     example: null
-                  feedSymbol:
-                    type: array
-                    description: 게시글에 대한 다른 사용자들의 반응 정보 (임시저장 글은 빈 배열 반환)
-                    example: []
+                  status:
+                    type: object
+                    description: 게시글의 상태 정보 (임시저장 게시글 또는 정식 게시글)
+                    properties:
+                      id:
+                        type: number
+                        description: 게시글 상태 ID
+                        example: 2
+                      is_status:
+                        type: string
+                        description: 게시글 상태
+                        example: "temporary"
                   uploadFiles:
                     type: array
                     description: 임시저장 게시글에 첨부된 이미지 또는 파일의 URL
@@ -161,15 +165,6 @@ post:
                         id:
                           type: integer
                           description: 첨부파일 ID
-                        created_at:
-                          type: string
-                          description: 첨부파일 생성 시간
-                        updated_at:
-                          type: string
-                          description: 첨부파일 수정 시간
-                        deleted_at:
-                          type: string | null
-                          description: 첨부파일 삭제 시간
                         is_img:
                           type: boolean
                           description: "첨부파일의 형식이 '이미지'인지에 대한 여부 (true: 이미지, false: 파일)"
@@ -178,15 +173,9 @@ post:
                           description: 첨부파일 URL
                       example:
                         - id: 1
-                          created_at: 2023-03-20 21:13:06.972880
-                          updated_at: 2023-03-20 21:13:06.972880
-                          deleted_at: null
                           is_img: true
                           file_link: "https://image.com/image.jpeg"
                         - id: 2
-                          created_at: 2023-03-20 21:13:06.972880
-                          updated_at: 2023-03-20 21:13:06.972880
-                          deleted_at: null
                           is_img: false
                           file_link: "https://image2.com/docu.pdf"
 
