@@ -1993,7 +1993,7 @@ paths:
               type: string
               description: 에러 메시지
               example: Internal Server Error
-  /feeds:
+  /feeds/post/:
     get:
       tags:
         - Feed
@@ -2027,7 +2027,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/paths/~1feeds/components/schemas/SuccessGetFeedList'
+                $ref: '#/paths/~1feeds~1post~1/components/schemas/SuccessGetFeedList'
         '500':
           description: Internal Server Error
     post:
@@ -2045,14 +2045,14 @@ paths:
       security:
         - BearerAuth: []
       requestBody:
-        $ref: '#/paths/~1feeds/components/requestBodies/RequestPostFeed'
+        $ref: '#/paths/~1feeds~1post~1/components/schemas/RequestPostFeed'
       responses:
         '200':
           description: successful operation
           content:
             application/json:
               schema:
-                $ref: '#/paths/~1feeds/components/schemas/SuccessPostFeed'
+                $ref: '#/paths/~1feeds~1post~1/components/schemas/SuccessPostFeed'
         '500':
           description: Internal Server Error
     patch:
@@ -2071,55 +2071,17 @@ paths:
       security:
         - BearerAuth: []
       requestBody:
-        $ref: '#/paths/~1feeds/components/requestBodies/RequestPostFeed'
+        $ref: '#/paths/~1feeds~1post~1/components/schemas/RequestPostFeed'
       responses:
         '200':
           description: successful operation
           content:
             application/json:
               schema:
-                $ref: '#/paths/~1feeds/components/schemas/SuccessPostFeed'
+                $ref: '#/paths/~1feeds~1post~1/components/schemas/SuccessPostFeed'
         '500':
           description: Internal Server Error
     components:
-      requestBodies:
-        RequestPostFeed:
-          required: true
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  title:
-                    type: string
-                    description: 게시글 제목
-                    required: true
-                  content:
-                    type: string
-                    description: 게시글 내용
-                    required: true
-                  estimation:
-                    type: integer
-                    description: 게시글 주제에 대한 작성자의 평가 아이콘 ID
-                    required: true
-                  category:
-                    type: integer
-                    description: 게시글 카테고리 ID
-                    required: true
-                  fileLinks:
-                    type: array
-                    description: 게시글에 첨부할 파일의 url
-                    required: false
-                    items:
-                      type: string
-                example:
-                  title: 게시글 제목
-                  content: 게시글 내용
-                  estimation: 1
-                  category: 1
-                  fileLinks:
-                    - 'https://s3.ap-northeast-2.amazonaws.com/woowahan-crews/1616580000000_1.png'
-                    - 'https://s3.ap-northeast-2.amazonaws.com/woowahan-crews/1616580000000_2.png'
       schemas:
         SuccessGetFeedList:
           type: object
@@ -2215,6 +2177,43 @@ paths:
               postedAt: '2021-07-01 00:00:00'
               deletedAt: null
               statusId: 1
+        RequestPostFeed:
+          required: true
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  title:
+                    type: string
+                    description: 게시글 제목
+                    required: true
+                  content:
+                    type: string
+                    description: 게시글 내용
+                    required: true
+                  estimation:
+                    type: integer
+                    description: 게시글 주제에 대한 작성자의 평가 아이콘 ID
+                    required: true
+                  category:
+                    type: integer
+                    description: 게시글 카테고리 ID
+                    required: true
+                  fileLinks:
+                    type: array
+                    description: 게시글에 첨부할 파일의 url
+                    required: false
+                    items:
+                      type: string
+                example:
+                  title: 게시글 제목
+                  content: 게시글 내용
+                  estimation: 1
+                  category: 1
+                  fileLinks:
+                    - 'https://s3.ap-northeast-2.amazonaws.com/woowahan-crews/1616580000000_1.png'
+                    - 'https://s3.ap-northeast-2.amazonaws.com/woowahan-crews/1616580000000_2.png'
         SuccessPostFeed:
           type: object
           properties:
