@@ -329,15 +329,20 @@ components:
               file_name:
                 type: string
                 description: 첨부파일 이름
+              file_size:
+                type: string
+                description: 첨부파일 크기 (1MB 이하는 KB 단위로 표시, 1MB 이상은 MB 단위로 표시)
             example:
               - id: 1
                 is_img: true
                 file_link: "https://image.com/image.jpeg"
                 file_name: "image.jpeg"
+                file_size: "1.22KB"
               - id: 2
                 is_img: false
                 file_link: "https://image2.com/docu.pdf"
                 file_name: "docu.pdf"
+                file_size: "2.22MB"
 
     Error:
       type: object

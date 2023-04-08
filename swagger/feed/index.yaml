@@ -306,6 +306,9 @@ components:
                 file_name:
                   type: string
                   description: 파일의 이름
+                file_size:
+                  type: integer
+                  description: 파일 크기(1MB 이하는 KB 단위로 표시, 1MB 이상은 MB 단위로 표시)
           example:
             id: 1
             created_at: "2021-07-01 00:00:00"
@@ -331,7 +334,9 @@ components:
                 is_img: true
                 file_link: "https://i.imgur.com/1j2j3j4.jpg"
                 file_name: "1j2j3j4.jpg"
+                file_size: 39.02KB
               - id: 2
                 is_img: false
                 file_link: "https://i.imgur.com/1j2j3j4.pdf"
                 file_name: "1j2j3j4.pdf"
+                file_size: 1.20MB
