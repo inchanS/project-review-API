@@ -303,6 +303,9 @@ components:
                 file_link:
                   type: string
                   description: 파일의 url
+                file_name:
+                  type: string
+                  description: 파일의 이름
           example:
             id: 1
             created_at: "2021-07-01 00:00:00"
@@ -327,6 +330,8 @@ components:
               - id: 1
                 is_img: true
                 file_link: "https://i.imgur.com/1j2j3j4.jpg"
+                file_name: "1j2j3j4.jpg"
               - id: 2
                 is_img: false
                 file_link: "https://i.imgur.com/1j2j3j4.pdf"
+                file_name: "1j2j3j4.pdf"

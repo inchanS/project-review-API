@@ -1978,13 +1978,18 @@ paths:
                   file_link:
                     type: string
                     description: 첨부파일 URL
+                  file_name:
+                    type: string
+                    description: 첨부파일 이름
                 example:
                   - id: 1
                     is_img: true
                     file_link: 'https://image.com/image.jpeg'
+                    file_name: image.jpeg
                   - id: 2
                     is_img: false
                     file_link: 'https://image2.com/docu.pdf'
+                    file_name: docu.pdf
         Error:
           type: object
           description: 에러 응답
@@ -2295,6 +2300,9 @@ paths:
                     file_link:
                       type: string
                       description: 파일의 url
+                    file_name:
+                      type: string
+                      description: 파일의 이름
               example:
                 id: 1
                 created_at: '2021-07-01 00:00:00'
@@ -2319,9 +2327,11 @@ paths:
                   - id: 1
                     is_img: true
                     file_link: 'https://i.imgur.com/1j2j3j4.jpg'
+                    file_name: 1j2j3j4.jpg
                   - id: 2
                     is_img: false
                     file_link: 'https://i.imgur.com/1j2j3j4.pdf'
+                    file_name: 1j2j3j4.pdf
   '/feeds/{feedId}':
     get:
       tags:
@@ -2359,11 +2369,13 @@ paths:
     delete:
       tags:
         - Feed
-      summary: 게시글 삭제
+      summary: 게시글 및 임시게시글 삭제
       description: |
         feedId값의 게시글을 삭제합니다.  
         토큰은 필수입니다.  
         토큰 사용자와 게시글 작성자가 일치해야 합니다.
+
+        - 해당 게시글의 모든 uploadFile이 삭제되며 링크 또한 무효화 됩니다.
       produces:
         - application/json
       security:
@@ -2514,6 +2526,10 @@ paths:
                       type: string
                       description: 파일 URL
                       example: 'https://s3.ap-northeast-2.amazonaws.com/project-review-bucket/1620000000000.png'
+                    file_name:
+                      type: string
+                      description: 파일 이름
+                      example: 1620000000000.png
   /feeds/estimations:
     get:
       tags:

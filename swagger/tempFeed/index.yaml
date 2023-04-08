@@ -326,13 +326,18 @@ components:
               file_link:
                 type: string
                 description: 첨부파일 URL
+              file_name:
+                type: string
+                description: 첨부파일 이름
             example:
               - id: 1
                 is_img: true
                 file_link: "https://image.com/image.jpeg"
+                file_name: "image.jpeg"
               - id: 2
                 is_img: false
                 file_link: "https://image2.com/docu.pdf"
+                file_name: "docu.pdf"
 
     Error:
       type: object
