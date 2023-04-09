@@ -2081,7 +2081,7 @@ paths:
       security:
         - BearerAuth: []
       requestBody:
-        $ref: '#/paths/~1feeds~1post~1/components/schemas/RequestPostFeed'
+        $ref: '#/paths/~1feeds~1post~1/components/schemas/RequestUpdatePostFeed'
       responses:
         '200':
           description: successful operation
@@ -2217,6 +2217,48 @@ paths:
                     items:
                       type: string
                 example:
+                  title: 게시글 제목
+                  content: 게시글 내용
+                  estimation: 1
+                  category: 1
+                  fileLinks:
+                    - 'https://s3.ap-northeast-2.amazonaws.com/woowahan-crews/1616580000000_1.png'
+                    - 'https://s3.ap-northeast-2.amazonaws.com/woowahan-crews/1616580000000_2.png'
+        RequestUpdatePostFeed:
+          required: true
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  feedId:
+                    type: integer
+                    description: 수정할 게시글의 ID
+                    required: true
+                  title:
+                    type: string
+                    description: 게시글 제목
+                    required: true
+                  content:
+                    type: string
+                    description: 게시글 내용
+                    required: true
+                  estimation:
+                    type: integer
+                    description: 게시글 주제에 대한 작성자의 평가 아이콘 ID
+                    required: true
+                  category:
+                    type: integer
+                    description: 게시글 카테고리 ID
+                    required: true
+                  fileLinks:
+                    type: array
+                    description: 게시글에 첨부할 파일의 url
+                    required: false
+                    items:
+                      type: string
+                example:
+                  feedId: 1
                   title: 게시글 제목
                   content: 게시글 내용
                   estimation: 1
