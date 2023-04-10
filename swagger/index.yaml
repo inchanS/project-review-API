@@ -67,3 +67,5 @@ paths:
 
   /search:
     $ref: "./search/index.yaml"
+  /search/list:
+    $ref: "./search/getSearchList.yaml"

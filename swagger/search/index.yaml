@@ -15,6 +15,20 @@ get:
       required: true
       schema:
         type: string
+    - in: query
+      name: index
+      description: 검색할 페이지 번호
+      required: false
+      schema:
+        type: integer
+        default: 1
+    - in: query
+      name: limit
+      description: 한 페이지에 보여줄 게시글 수
+      required: false
+      schema:
+        type: integer
+        default: 10
   responses:
     200:
       description: 검색 결과
