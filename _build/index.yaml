@@ -2782,3 +2782,51 @@ paths:
                       - type: string
                         description: S3에 파일 삭제 명령에 실패했습니다.
                         example: 'AWS_SEND_COMMAND_FILE_FAIL: ${err}'
+  /search:
+    get:
+      tags:
+        - search
+      summary: 검색
+      description: |
+        제목 또는 내용에 키워드가 포함된 게시글을 검색합니다.  
+        검색 결과는 최신순으로 정렬됩니다.
+        **제목 또는 내용에 포함된 키워드를 기준으로 앞, 뒤로 20글자만 추출하여 반환**합니다.
+      produces:
+        - application/json
+      parameters:
+        - in: query
+          name: query
+          description: 검색할 키워드
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 검색 결과
+          content:
+            application/json:
+              type: array
+              items:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    description: 게시글 ID
+                  postedAt:
+                    type: string
+                    description: 게시글 등록 시간
+                  title:
+                    type: string | null
+                    description: '게시글 제목, 검색 결과에 포함된 키워드를 기준으로 앞, 뒤로 20글자만 추출하여 반환, 검색 결과에 포함된 키워드가 없을 경우 null'
+                  content:
+                    type: string
+                    description: '게시글 내용, 검색 결과에 포함된 키워드를 기준으로 앞, 뒤로 20글자만 추출하여 반환, 검색 결과에 포함된 키워드가 없을 경우 null'
+              example:
+                - id: 1
+                  postedAt: 2021-08-01T00:00:00.000Z
+                  title: ... 검색어와 관련된 내용입니다.
+                  content: null
+                - id: 2
+                  postedAt: 2021-08-01T00:00:00.000Z
+                  title: null
+                  content: ... 검색어와 관련된 내용입니다. 이러저러한 내용들이 ...

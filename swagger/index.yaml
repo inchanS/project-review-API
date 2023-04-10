@@ -64,3 +64,6 @@ paths:
 
   /upload:
     $ref: "./uploadFiles/index.yaml"
+
+  /search:
+    $ref: "./search/index.yaml"
