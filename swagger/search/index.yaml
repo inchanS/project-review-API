@@ -34,28 +34,29 @@ get:
       description: 검색 결과
       content:
         application/json:
-          type: array
-          items:
-            type: object
-            properties:
-              id:
-                type: integer
-                description: 게시글 ID
-              postedAt:
-                type: string
-                description: 게시글 등록 시간
-              title:
-                type: string | null
-                description: 게시글 제목, 검색 결과에 포함된 키워드를 기준으로 앞, 뒤로 20글자만 추출하여 반환, 검색 결과에 포함된 키워드가 없을 경우 null
-              content:
-                type: string
-                description: 게시글 내용, 검색 결과에 포함된 키워드를 기준으로 앞, 뒤로 20글자만 추출하여 반환, 검색 결과에 포함된 키워드가 없을 경우 null
-          example:
-            - id: 1
-              postedAt: 2021-08-01 00:00:00
-              title: ... 검색어와 관련된 내용입니다.
-              content: null
-            - id: 2
-              postedAt: 2021-08-01 00:00:00
-              title: null
-              content: ... 검색어와 관련된 내용입니다. 이러저러한 내용들이 ...
+          schema:
+            type: array
+            items:
+              type: object
+              properties:
+                id:
+                  type: integer
+                  description: 게시글 ID
+                postedAt:
+                  type: string
+                  description: 게시글 등록 시간
+                title:
+                  type: string | null
+                  description: 게시글 제목, 검색 결과에 포함된 키워드를 기준으로 앞, 뒤로 20글자만 추출하여 반환, 검색 결과에 포함된 키워드가 없을 경우 null
+                content:
+                  type: string
+                  description: 게시글 내용, 검색 결과에 포함된 키워드를 기준으로 앞, 뒤로 20글자만 추출하여 반환, 검색 결과에 포함된 키워드가 없을 경우 null
+            example:
+              - id: 1
+                postedAt: 2021-08-01 00:00:00
+                title: ... 검색어와 관련된 내용입니다.
+                content: null
+              - id: 2
+                postedAt: 2021-08-01 00:00:00
+                title: null
+                content: ... 검색어와 관련된 내용입니다. 이러저러한 내용들이 ...

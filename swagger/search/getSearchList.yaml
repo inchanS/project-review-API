@@ -35,96 +35,99 @@ get:
       description: 검색 결과
       content:
         application/json:
-          type: object
-          properties:
-            id:
-              type: integer
-              description: 게시글 id
-            categoryId:
-              type: string
-              description: 카테고리 id
-            category:
-              type: string
-              description: 카테고리 이름
-            userId:
-              type: integer
-              description: 유저 id
-            userNickname:
-              type: string
-              description: 유저 닉네임
-            title:
-              type: string
-              description: 게시글 제목
-            content:
-              type: string
-              description: 게시글 내용
-            imgUrl:
-              type: string
-              description: 게시글 대표 이미지의 url
-            viewCnt:
-              type: integer
-              description: 조회수
-            commentCnt:
-              type: integer
-              description: 댓글수
-            likeCnt:
-              type: integer
-              description: 좋아요수
-            filesCnt:
-              type: integer
-              description: 첨부파일수 (이미지 파일은 제외됩니다.)
-            imgCnt:
-              type: integer
-              description: 이미지 파일수
-            createdAt:
-              type: string
-              description: 게시글 생성일
-            updatedAt:
-              type: string
-              description: 게시글 수정일
-            postedAt:
-              type: string
-              description: 게시글 게시일
-            deletedAt:
-              type: string
-              description: 게시글 삭제일
-            statusId:
-              type: integer
-              description: 게시글 상태 id
-          example:
-            - id: 1
-              categoryId: 1
-              category: "자유"
-              userId: 1
-              userNickname: "inchan"
-              title: "첫번째 게시글"
-              content: "첫번째 게시글 내용 {검색어} ..."
-              imgUrl: "https://i.imgur.com/1j2j3j4.jpg"
-              viewCnt: 0
-              commentCnt: 0
-              likeCnt: 0
-              filesCnt: 0
-              imgCnt: 1
-              createdAt: "2021-07-01 00:00:00"
-              updatedAt: "2021-07-01 00:00:00"
-              postedAt: "2021-07-01 00:00:00"
-              deletedAt: null
-              statusId: 1
-            - id: 2
-              categoryId: 2
-              category: "질문"
-              userId: 1
-              userNickname: "inchan"
-              title: "두번째 게시글{검색어} ..."
-              content: "...{검색어} 두번째 게시글 내용"
-              imgUrl: "https://i.imgur.com/1j2j3j4.jpg"
-              viewCnt: 200
-              commentCnt: 0
-              likeCnt: 3
-              filesCnt: 1
-              imgCnt: 2
-              createdAt: "2021-07-01 00:00:00"
-              updatedAt: "2021-07-01 00:00:00"
-              postedAt: "2021-07-01 00:00:00"
-              deletedAt: null
-              statusId: 1
+          schema:
+            type: array
+            items:
+              type: object
+              properties:
+                id:
+                  type: integer
+                  description: 게시글 id
+                categoryId:
+                  type: string
+                  description: 카테고리 id
+                category:
+                  type: string
+                  description: 카테고리 이름
+                userId:
+                  type: integer
+                  description: 유저 id
+                userNickname:
+                  type: string
+                  description: 유저 닉네임
+                title:
+                  type: string
+                  description: 게시글 제목
+                content:
+                  type: string
+                  description: 게시글 내용
+                imgUrl:
+                  type: string
+                  description: 게시글 대표 이미지의 url
+                viewCnt:
+                  type: integer
+                  description: 조회수
+                commentCnt:
+                  type: integer
+                  description: 댓글수
+                likeCnt:
+                  type: integer
+                  description: 좋아요수
+                filesCnt:
+                  type: integer
+                  description: 첨부파일수 (이미지 파일은 제외됩니다.)
+                imgCnt:
+                  type: integer
+                  description: 이미지 파일수
+                createdAt:
+                  type: string
+                  description: 게시글 생성일
+                updatedAt:
+                  type: string
+                  description: 게시글 수정일
+                postedAt:
+                  type: string
+                  description: 게시글 게시일
+                deletedAt:
+                  type: string
+                  description: 게시글 삭제일
+                statusId:
+                  type: integer
+                  description: 게시글 상태 id
+            example:
+              - id: 1
+                categoryId: 1
+                category: "자유"
+                userId: 1
+                userNickname: "inchan"
+                title: "첫번째 게시글"
+                content: "첫번째 게시글 내용 {검색어} ..."
+                imgUrl: "https://i.imgur.com/1j2j3j4.jpg"
+                viewCnt: 0
+                commentCnt: 0
+                likeCnt: 0
+                filesCnt: 0
+                imgCnt: 1
+                createdAt: "2021-07-01 00:00:00"
+                updatedAt: "2021-07-01 00:00:00"
+                postedAt: "2021-07-01 00:00:00"
+                deletedAt: null
+                statusId: 1
+              - id: 2
+                categoryId: 2
+                category: "질문"
+                userId: 1
+                userNickname: "inchan"
+                title: "두번째 게시글{검색어} ..."
+                content: "...{검색어} 두번째 게시글 내용"
+                imgUrl: "https://i.imgur.com/1j2j3j4.jpg"
+                viewCnt: 200
+                commentCnt: 0
+                likeCnt: 3
+                filesCnt: 1
+                imgCnt: 2
+                createdAt: "2021-07-01 00:00:00"
+                updatedAt: "2021-07-01 00:00:00"
+                postedAt: "2021-07-01 00:00:00"
+                deletedAt: null
+                statusId: 1
