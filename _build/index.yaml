@@ -1320,16 +1320,37 @@ paths:
               id:
                 type: integer
                 description: 카테고리의 ID
-              name:
+              category:
                 type: string
                 description: 카테고리의 이름
+              description:
+                type: string
+                description: 카테고리의 설명
           example:
             - id: 1
-              name: 1 category
+              category: 음식
+              description: '식당, 카페, 디저트 등'
             - id: 2
-              name: 2 category
+              category: 전자제품
+              description: '스마트폰, 컴퓨터, 가전제품 등'
             - id: 3
-              name: 3 category
+              category: 의류 및 악세서리
+              description: '패션, 의류, 신발, 가방, 액세서리 등'
+            - id: 4
+              category: 생활용품
+              description: '가구, 주방용품, 화장품, 잡화 등'
+            - id: 5
+              category: 화장품
+              description: '화장품, 향수, 뷰티 등'
+            - id: 6
+              category: 컨텐츠
+              description: '영화, 드라마, 음악, 책, 만화, 이벤트 등'
+            - id: 7
+              category: 여행
+              description: '여행, 관광지, 호텔, 숙박시설 등'
+            - id: 8
+              category: 기타
+              description: 기타
   /symbols:
     get:
       tags:
