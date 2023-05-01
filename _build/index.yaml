@@ -39,228 +39,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/paths/~1users~1signup/components/schemas/Success'
+                $ref: '#/paths/~1users~1signup/components/schemas/SignUpSuccess'
         '500':
           description: Internal server error
           content:
             application/json:
               schema:
                 $ref: '#/paths/~1users~1signup/components/schemas/Error'
-    components:
-      schemas:
-        User:
-          type: object
-          properties:
-            nickname:
-              type: string
-              description: |
-                사용자의 닉네임입니다.
-                중복되지 않아야 합니다. (중복검사 사용 추천)
-              example: 블랙팬서
-            email:
-              type: string
-              description: |
-                사용자의 이메일입니다.  
-                중복되지 않아야 합니다. (중복검사 사용 추천)
-              example: black@test.com
-            password:
-              type: string
-              description: |
-                사용자의 비밀번호입니다.  
-                비밀번호는 **8자 이상 20자 이하**로 설정해야 합니다.  
-                비밀번호는 영문이어야 하며 **소문자, 대문자, 숫자, 특수문자**를 모두 포함해야 합니다.  
-                비밀번호는 공백을 포함할 수 없습니다.
-              example: Abcd@1234
-        Success:
-          type: object
-          properties:
-            message:
-              type: string
-              description: 회원가입 성공 메세지
-              example: SIGNUP_SUCCESS
-        Error:
-          type: object
-          properties:
-            message:
-              type: string
-              description: 가입 실패시 메세지
-              example: (THIS_EMAIL)_IS_MAIL_THAT_ALREADY_EXSITS
-  /users/checknickname:
-    get:
-      tags:
-        - User
-      summary: 회원가입시 닉네임 중복체크
-      description: 회원가입시 닉네임 중복체크
-      produces:
-        - application/json
-      parameters:
-        - name: nickname
-          in: query
-          description: 중복체크할 닉네임
-          required: true
-          type: string
-          example: 'http://localhost:8000/users/checknickname?nickname=블랙팬서'
-      responses:
-        '200':
-          description: successful operation
-          content:
-            application/json:
-              schema:
-                $ref: '#/paths/~1users~1checknickname/components/schemas/Success'
-        '500':
-          description: Internal server error
-          content:
-            application/json:
-              schema:
-                $ref: '#/paths/~1users~1checknickname/components/schemas/Error'
-    components:
-      schemas:
-        Success:
-          type: object
-          properties:
-            message:
-              type: string
-              description: 닉네임 중복체크 성공 메세지
-              example: AVAILABLE_NICKNAME
-        Error:
-          type: object
-          properties:
-            message:
-              type: string
-              description: 닉네임 중복체크 실패 메세지
-              example: (THIS_EMAIL)_IS_NICKNAME_THAT_ALREADY_EXSITS
-  /users/checkemail:
-    get:
-      tags:
-        - User
-      summary: 회원가입시 이메일 중복체크
-      description: 회원가입시 이메일 중복체크
-      produces:
-        - application/json
-      parameters:
-        - name: email
-          in: query
-          description: 중복체크할 이메일
-          required: true
-          type: string
-          example: 'http://localhost:8000/users/checkemail?email=test123'
-      responses:
-        '200':
-          description: successful operation
-          content:
-            application/json:
-              schema:
-                $ref: '#/paths/~1users~1checkemail/components/schemas/Success'
-        '500':
-          description: Internal server error
-          content:
-            application/json:
-              schema:
-                $ref: '#/paths/~1users~1checkemail/components/schemas/Error'
-    components:
-      schemas:
-        Success:
-          type: object
-          properties:
-            message:
-              type: string
-              description: 이메일 중복체크 성공 메세지
-              example: AVAILABLE_EMAIL
-        Error:
-          type: object
-          properties:
-            message:
-              type: string
-              description: 이메일 중복체크 실패 메세지
-              example: (THIS_EMAIL)_IS_EMAIL_THAT_ALREADY_EXSITS
-  /users/signin:
-    post:
-      tags:
-        - User
-      summary: 회원 로그인
-      description: 회원 로그인 관련 API
-      produces:
-        - application/json
-      requestBody:
-        description: 회원 로그인시 필요한 사용자 정보 객체
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/paths/~1users~1signin/components/schemas/User'
-      responses:
-        '200':
-          description: successful operation
-          content:
-            application/json:
-              schema:
-                $ref: '#/paths/~1users~1signin/components/schemas/Success'
-        '500':
-          description: Internal server error
-          content:
-            application/json:
-              schema:
-                $ref: '#/paths/~1users~1signin/components/schemas/Error'
-    components:
-      schemas:
-        User:
-          type: object
-          properties:
-            email:
-              type: string
-              description: The email of the user
-              example: black@test.com
-            password:
-              type: string
-              description: The password of the user
-              example: Abcd@1234
-        Success:
-          type: object
-          properties:
-            message:
-              type: string
-              description: 로그인 성공 메세지
-              example: SIGNIN_SUCCESS
-            result:
-              type: object
-              description: 로그인 성공시 토큰값
-              properties:
-                token:
-                  type: string
-                  description: 토큰값
-                  example: 'token: ''eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTYsImlhdCI6MTY3ODEyOTY0OX0.eyNOFEZt5xPSakzy4FyGqub9heSZA5FtOZGtWyTI4vg'''
-        Error:
-          type: object
-          properties:
-            message:
-              type: string
-              description: 로그인 실패시 메세지
-              example: (THIS_EMAIL)_IS_NOT_FOUND
-  /users/userinfo:
-    get:
-      tags:
-        - User
-      summary: 로그인한 유저의 모든 정보 보기
-      description: '로그인한 유저의 ID, 가입일, 닉네임, 이메일과 게시글 목록, 댓글 목록을 반환합니다.<br> **토큰을 필요로 합니다.**'
-      produces:
-        - application/json
-      security:
-        - BearerAuth: []
-      responses:
-        '200':
-          description: successful operation
-          content:
-            application/json:
-              schema:
-                $ref: '#/paths/~1users~1userinfo/components/schemas/Success'
-        '401':
-          description: Unauthorized
-          content:
-            application/json:
-              schema:
-                $ref: '#/paths/~1users~1userinfo/components/schemas/ErrorInvalidToken'
-        '500':
-          description: Internal server error
     patch:
       tags:
         - User
@@ -429,367 +214,44 @@ paths:
             서버의 에러로 인해 삭제에 실패했을 때 에러를 반환합니다.
     components:
       schemas:
-        Success:
+        User:
           type: object
           properties:
-            userInfo:
-              type: object
-              properties:
-                id:
-                  type: integer
-                  description: 유저의 ID
-                  example: 16
-                createdAt:
-                  type: string
-                  description: 유저의 가입일
-                  example: '2021-01-01T00:00:00.000Z'
-                nickname:
-                  type: string
-                  description: 유저의 닉네임
-                  example: black
-                email:
-                  type: string
-                  description: 유저의 이메일
-                  example: black@test.com
-            userFeeds:
-              type: array
-              items:
-                type: object
-                properties:
-                  id:
-                    type: integer
-                    description: 게시글의 ID
-                    example: 1
-                  title:
-                    type: string
-                    description: 게시글의 제목
-                    example: 게시글 제목
-                  content:
-                    type: string
-                    description: 게시글의 내용
-                    example: 게시글 내용
-                  createdAt:
-                    type: string
-                    description: 게시글의 작성일
-                    example: '2021-01-01T00:00:00.000Z'
-                  updatedAt:
-                    type: string
-                    description: 게시글의 수정일
-                    example: '2021-01-01T00:00:00.000Z'
-                  userId:
-                    type: integer
-                    description: 게시글의 작성자 ID
-                    example: 16
-                  user:
-                    type: object
-                    properties:
-                      id:
-                        type: integer
-                        description: 게시글의 작성자 ID
-                        example: 16
-                      nickname:
-                        type: string
-                        description: 게시글의 작성자 닉네임
-                        example: black
-                      email:
-                        type: string
-                        description: 게시글의 작성자 이메일
-                        example: test@test.com
-            userComments:
-              type: array
-              items:
-                type: object
-                properties:
-                  id:
-                    type: integer
-                    description: 댓글의 ID
-                    example: 1
-                  content:
-                    type: string
-                    description: 댓글의 내용
-                    example: 댓글 내용
-                  createdAt:
-                    type: string
-                    description: 댓글의 작성일
-                    example: 2021-01-01T00:00:00.000Z
-                  updatedAt:
-                    type: string
-                    description: 댓글의 수정일
-                    example: 2021-01-01T00:00:00.000Z
-                  userId:
-                    type: integer
-                    description: 댓글의 작성자 ID
-                    example: 16
-                  user:
-                    type: object
-                    properties:
-                      id:
-                        type: integer
-                        description: 댓글의 작성자 ID
-                        example: 16
-                      nickname:
-                        type: string
-                        description: 댓글의 작성자 닉네임
-                        example: black
-                      email:
-                        type: string
-                        description: 댓글의 작성자 이메일
-                        example: test@test.com
-            userFeedSymbols:
-              type: array
-              items:
-                type: object
-                properties:
-                  id:
-                    type: integer
-                    description: 공감의 ID
-                    example: 1
-                  createdAt:
-                    type: string
-                    description: 공감의 작성일
-                    example: 2021-01-01T00:00:00.000Z
-                  updatedAt:
-                    type: string
-                    description: 공감의 수정일
-                    example: 2021-01-01T00:00:00.000Z
-                  feed:
-                    type: object
-                    properties:
-                      id:
-                        type: integer
-                        description: 공감한 게시글의 ID
-                        example: 1
-                      user:
-                        type: object
-                        properties:
-                          id:
-                            type: integer
-                            description: 공감한 게시글의 작성자 ID
-                            example: 16
-                          nickname:
-                            type: string
-                            description: 공감한 게시글의 작성자 닉네임
-                            example: black
-                      title:
-                        type: string
-                        description: 공감한 게시글의 제목
-                        example: 게시글 제목
-                  symbol:
-                    type: object
-                    properties:
-                      id:
-                        type: integer
-                        description: 공감 종류의 ID
-                        example: 1
-                      symbol:
-                        type: string
-                        description: 공감 종류
-                        example: LIKE
-        ErrorInvalidToken:
+            nickname:
+              type: string
+              description: |
+                사용자의 닉네임입니다.
+                중복되지 않아야 합니다. (중복검사 사용 추천)
+              example: 블랙팬서
+            email:
+              type: string
+              description: |
+                사용자의 이메일입니다.  
+                중복되지 않아야 합니다. (중복검사 사용 추천)
+              example: black@test.com
+            password:
+              type: string
+              description: |
+                사용자의 비밀번호입니다.  
+                비밀번호는 **8자 이상 20자 이하**로 설정해야 합니다.  
+                비밀번호는 영문이어야 하며 **소문자, 대문자, 숫자, 특수문자**를 모두 포함해야 합니다.  
+                비밀번호는 공백을 포함할 수 없습니다.
+              example: Abcd@1234
+        SignUpSuccess:
           type: object
           properties:
             message:
               type: string
-              description: 토큰이 유효하지 않을 때 반환되는 에러 메시지
-              example: INVALID_TOKEN
-  '/users/userinfo/{userId}':
-    get:
-      tags:
-        - User
-      summary: 타겟 유저의 정보 보기
-      description: '타겟 유저의 ID, 가입일, 닉네임, 이메일과 게시글 목록, 댓글 목록을 반환합니다.<br> **토큰은 없어도 되지만, <BR> 타겟 유저와 로그인 유저간의 관련된 비공개 정보는 볼 수 없습니다.**'
-      produces:
-        - application/json
-      security:
-        - BearerAuth: []
-      parameters:
-        - in: path
-          name: userId
-          description: 타겟유저의 ID
-          required: true
-          schema:
-            type: integer
-      responses:
-        '200':
-          description: successful operation
-          content:
-            application/json:
-              schema:
-                $ref: '#/paths/~1users~1userinfo~1%7BuserId%7D/components/schemas/Success'
-        '401':
-          description: Unauthorized
-          content:
-            application/json:
-              schema:
-                $ref: '#/paths/~1users~1userinfo~1%7BuserId%7D/components/schemas/ErrorInvalidToken'
-        '500':
-          description: Internal server error
-    components:
-      schemas:
-        Success:
-          type: object
-          properties:
-            userInfo:
-              type: object
-              properties:
-                id:
-                  type: integer
-                  description: 유저의 ID
-                  example: 16
-                createdAt:
-                  type: string
-                  description: 유저의 가입일
-                  example: '2021-01-01T00:00:00.000Z'
-                nickname:
-                  type: string
-                  description: 유저의 닉네임
-                  example: black
-                email:
-                  type: string
-                  description: 유저의 이메일
-                  example: black@test.com
-            userFeeds:
-              type: array
-              items:
-                type: object
-                properties:
-                  id:
-                    type: integer
-                    description: 게시글의 ID
-                    example: 1
-                  title:
-                    type: string
-                    description: 게시글의 제목
-                    example: 게시글 제목
-                  content:
-                    type: string
-                    description: 게시글의 내용
-                    example: 게시글 내용
-                  createdAt:
-                    type: string
-                    description: 게시글의 작성일
-                    example: '2021-01-01T00:00:00.000Z'
-                  updatedAt:
-                    type: string
-                    description: 게시글의 수정일
-                    example: '2021-01-01T00:00:00.000Z'
-                  userId:
-                    type: integer
-                    description: 게시글의 작성자 ID
-                    example: 16
-                  user:
-                    type: object
-                    properties:
-                      id:
-                        type: integer
-                        description: 게시글의 작성자 ID
-                        example: 16
-                      nickname:
-                        type: string
-                        description: 게시글의 작성자 닉네임
-                        example: black
-                      email:
-                        type: string
-                        description: 게시글의 작성자 이메일
-                        example: test@test.com
-            userComments:
-              type: array
-              items:
-                type: object
-                properties:
-                  id:
-                    type: integer
-                    description: 댓글의 ID
-                    example: 1
-                  content:
-                    type: string
-                    description: 댓글의 내용
-                    example: 댓글 내용
-                  createdAt:
-                    type: string
-                    description: 댓글의 작성일
-                    example: 2021-01-01T00:00:00.000Z
-                  updatedAt:
-                    type: string
-                    description: 댓글의 수정일
-                    example: 2021-01-01T00:00:00.000Z
-                  userId:
-                    type: integer
-                    description: 댓글의 작성자 ID
-                    example: 16
-                  user:
-                    type: object
-                    properties:
-                      id:
-                        type: integer
-                        description: 댓글의 작성자 ID
-                        example: 16
-                      nickname:
-                        type: string
-                        description: 댓글의 작성자 닉네임
-                        example: black
-                      email:
-                        type: string
-                        description: 댓글의 작성자 이메일
-                        example: test@test.com
-            userFeedSymbols:
-              type: array
-              items:
-                type: object
-                properties:
-                  id:
-                    type: integer
-                    description: 공감의 ID
-                    example: 1
-                  createdAt:
-                    type: string
-                    description: 공감의 작성일
-                    example: 2021-01-01T00:00:00.000Z
-                  updatedAt:
-                    type: string
-                    description: 공감의 수정일
-                    example: 2021-01-01T00:00:00.000Z
-                  feed:
-                    type: object
-                    properties:
-                      id:
-                        type: integer
-                        description: 공감한 게시글의 ID
-                        example: 1
-                      user:
-                        type: object
-                        properties:
-                          id:
-                            type: integer
-                            description: 공감한 게시글의 작성자 ID
-                            example: 16
-                          nickname:
-                            type: string
-                            description: 공감한 게시글의 작성자 닉네임
-                            example: black
-                      title:
-                        type: string
-                        description: 공감한 게시글의 제목
-                        example: 게시글 제목
-                  symbol:
-                    type: object
-                    properties:
-                      id:
-                        type: integer
-                        description: 공감 종류의 ID
-                        example: 1
-                      symbol:
-                        type: string
-                        description: 공감 종류
-                        example: LIKE
-        ErrorInvalidToken:
+              description: 회원가입 성공 메세지
+              example: SIGNUP_SUCCESS
+        Error:
           type: object
           properties:
             message:
               type: string
-              description: 토큰이 유효하지 않을 때 반환되는 에러 메시지
-              example: INVALID_TOKEN
-  /users/password:
+              description: 가입 실패시 메세지
+              example: (THIS_EMAIL)_IS_MAIL_THAT_ALREADY_EXSITS
+  /users/signup/password:
     post:
       tags:
         - User
@@ -861,6 +323,486 @@ paths:
                     example: USER_IS_NOT_FOUND
         '500':
           description: Internal server error
+  /users/checknickname:
+    get:
+      tags:
+        - User
+      summary: 회원가입시 닉네임 중복체크
+      description: 회원가입시 닉네임 중복체크
+      produces:
+        - application/json
+      parameters:
+        - name: nickname
+          in: query
+          description: 중복체크할 닉네임
+          required: true
+          type: string
+          example: 'http://localhost:8000/users/checknickname?nickname=블랙팬서'
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1users~1checknickname/components/schemas/Success'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1users~1checknickname/components/schemas/Error'
+    components:
+      schemas:
+        Success:
+          type: object
+          properties:
+            message:
+              type: string
+              description: 닉네임 중복체크 성공 메세지
+              example: AVAILABLE_NICKNAME
+        Error:
+          type: object
+          properties:
+            message:
+              type: string
+              description: 닉네임 중복체크 실패 메세지
+              example: (THIS_EMAIL)_IS_NICKNAME_THAT_ALREADY_EXSITS
+  /users/checkemail:
+    get:
+      tags:
+        - User
+      summary: 회원가입시 이메일 중복체크
+      description: 회원가입시 이메일 중복체크
+      produces:
+        - application/json
+      parameters:
+        - name: email
+          in: query
+          description: 중복체크할 이메일
+          required: true
+          type: string
+          example: 'http://localhost:8000/users/checkemail?email=test123'
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1users~1checkemail/components/schemas/Success'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1users~1checkemail/components/schemas/Error'
+    components:
+      schemas:
+        Success:
+          type: object
+          properties:
+            message:
+              type: string
+              description: 이메일 중복체크 성공 메세지
+              example: AVAILABLE_EMAIL
+        Error:
+          type: object
+          properties:
+            message:
+              type: string
+              description: 이메일 중복체크 실패 메세지
+              example: (THIS_EMAIL)_IS_EMAIL_THAT_ALREADY_EXSITS
+  /users/signin:
+    post:
+      tags:
+        - User
+      summary: 회원 로그인
+      description: 회원 로그인 관련 API
+      produces:
+        - application/json
+      requestBody:
+        description: 회원 로그인시 필요한 사용자 정보 객체
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/paths/~1users~1signin/components/schemas/User'
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1users~1signin/components/schemas/Success'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1users~1signin/components/schemas/Error'
+    components:
+      schemas:
+        User:
+          type: object
+          properties:
+            email:
+              type: string
+              description: The email of the user
+              example: black@test.com
+            password:
+              type: string
+              description: The password of the user
+              example: Abcd@1234
+        Success:
+          type: object
+          properties:
+            message:
+              type: string
+              description: 로그인 성공 메세지
+              example: SIGNIN_SUCCESS
+            result:
+              type: object
+              description: 로그인 성공시 토큰값
+              properties:
+                token:
+                  type: string
+                  description: 토큰값
+                  example: 'token: ''eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTYsImlhdCI6MTY3ODEyOTY0OX0.eyNOFEZt5xPSakzy4FyGqub9heSZA5FtOZGtWyTI4vg'''
+        Error:
+          type: object
+          properties:
+            message:
+              type: string
+              description: 로그인 실패시 메세지
+              example: (THIS_EMAIL)_IS_NOT_FOUND
+  '/users/userinfo/{userId}':
+    get:
+      tags:
+        - User
+      summary: 타겟 유저의 정보 보기
+      description: '타겟 유저의 ID, 가입일, 닉네임, 이메일을 반환합니다.'
+      produces:
+        - application/json
+      security:
+        - BearerAuth: []
+      parameters:
+        - in: path
+          name: userId
+          description: 타겟유저의 ID
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1users~1userinfo~1%7BuserId%7D/components/schemas/Success'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1users~1userinfo~1%7BuserId%7D/components/schemas/ErrorInvalidToken'
+        '500':
+          description: Internal server error
+    components:
+      schemas:
+        Success:
+          type: object
+          properties:
+            id:
+              type: integer
+              description: 유저의 ID
+              example: 16
+            createdAt:
+              type: string
+              description: 유저의 가입일
+              example: '2021-01-01T00:00:00.000Z'
+            updated_at:
+              type: string
+              description: 유저의 정보 수정일
+              example: '2021-01-01T00:00:00.000Z'
+            deleted_at:
+              type: string
+              description: 유저의 탈퇴일
+              example: null
+            nickname:
+              type: string
+              description: 유저의 닉네임
+              example: black
+            email:
+              type: string
+              description: 유저의 이메일
+              example: black@test.com
+        ErrorInvalidToken:
+          type: object
+          properties:
+            message:
+              type: string
+              description: 토큰이 유효하지 않을 때 반환되는 에러 메시지
+              example: INVALID_TOKEN
+  '/users/userinfo/{userId}/feeds':
+    get:
+      tags:
+        - User
+      summary: 타겟 유저의 정보 보기
+      description: '타겟 유저의 게시글 목록을 반환합니다.<br> **토큰은 없어도 되지만, <BR> 타겟 유저와 로그인 유저간의 관련된 비공개 정보는 볼 수 없습니다.**'
+      produces:
+        - application/json
+      security:
+        - BearerAuth: []
+      parameters:
+        - in: path
+          name: userId
+          description: 타겟유저의 ID
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1users~1userinfo~1%7BuserId%7D~1feeds/components/schemas/Success'
+        '500':
+          description: Internal server error
+    components:
+      schemas:
+        Success:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+                description: 게시글의 ID
+                example: 1
+              categoryId:
+                type: integer
+                description: 게시글의 카테고리 ID
+                example: 1
+              category:
+                type: string
+                description: 게시글의 카테고리 이름
+                example: 의류 및 악세서리
+              userId:
+                type: integer
+                description: 게시글의 작성자 ID
+                example: 16
+              userNickname:
+                type: string
+                description: 게시글의 작성자 닉네임
+                example: black
+              title:
+                type: string
+                description: 게시글의 제목
+                example: 게시글 제목
+              content:
+                type: string
+                description: 게시글의 내용
+                example: 게시글 내용
+              imgUrl:
+                type: string
+                description: 게시글의 이미지 URL
+                example: 'http://dummyimage.com/1920x1080.png/ff4444/ffffff'
+              viewCnt:
+                type: integer
+                description: 게시글의 조회수
+                example: 1
+              commentCnt:
+                type: integer
+                description: 게시글의 댓글수
+                example: 1
+              likeCnt:
+                type: integer
+                description: 게시글의 좋아요수
+                example: 1
+              filesCnt:
+                type: integer
+                description: 게시글의 첨부파일수
+                example: 1
+              imgCnt:
+                type: integer
+                description: 게시글의 이미지수
+                example: 1
+              createdAt:
+                type: string
+                description: 게시글의 작성일
+                example: '2021-01-01 00:00:00'
+              updatedAt:
+                type: string
+                description: 게시글의 수정일
+                example: '2021-01-01 00:00:00'
+              postedAt:
+                type: string
+                description: 게시글의 게시일
+                example: '2021-01-01 00:00:00'
+              deletedAt:
+                type: string
+                description: 게시글의 삭제일
+                example: null
+              statusId:
+                type: integer
+                description: 게시글의 상태 ID
+                example: 1
+  '/users/userinfo/{userId}/comments':
+    get:
+      tags:
+        - User
+      summary: 타겟 유저의 정보 보기
+      description: '타겟 유저의 댓글 목록을 반환합니다.<br> **토큰은 없어도 되지만, <BR> 타겟 유저와 로그인 유저간의 관련된 비공개 정보는 볼 수 없습니다.**'
+      produces:
+        - application/json
+      security:
+        - BearerAuth: []
+      parameters:
+        - in: path
+          name: userId
+          description: 타겟유저의 ID
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1users~1userinfo~1%7BuserId%7D~1comments/components/schemas/Success'
+        '500':
+          description: Internal server error
+    components:
+      schemas:
+        Success:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+                description: 댓글의 ID
+                example: 1
+              created_at:
+                type: string
+                description: 댓글의 작성일
+                example: 2021-01-01T00:00:00.000Z
+              updated_at:
+                type: string
+                description: 댓글의 수정일
+                example: 2021-01-01T00:00:00.000Z
+              deleted_at:
+                type: string
+                description: 댓글의 삭제일
+                example: null
+              user:
+                type: integer
+                description: 댓글의 작성자 ID
+                example: 16
+              feed:
+                type: integer
+                description: 댓글의 게시글 ID
+                example: 1
+              comment:
+                type: string
+                description: 댓글의 내용
+                example: 댓글 내용
+              is_private:
+                type: boolean
+                description: 댓글의 공개 여부
+                example: false
+              parent:
+                type: integer
+                description: 댓글의 부모 댓글 ID
+                example: null
+              children:
+                type: array
+                description: 댓글의 자식 댓글 목록
+                items:
+                  type: integer
+                  description: 자식 댓글의 ID
+                  example:
+                    - 3
+                    - 14
+  '/users/userinfo/{userId}/symbols':
+    get:
+      tags:
+        - User
+      summary: 타겟 유저의 정보 보기
+      description: '타겟 유저의 좋아요 등에 대한 목록을 반환합니다.<br> **토큰은 없어도 되지만, <BR> 타겟 유저와 로그인 유저간의 관련된 비공개 정보는 볼 수 없습니다.**'
+      produces:
+        - application/json
+      security:
+        - BearerAuth: []
+      parameters:
+        - in: path
+          name: userId
+          description: 타겟유저의 ID
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1users~1userinfo~1%7BuserId%7D~1symbols/components/schemas/Success'
+        '500':
+          description: Internal server error
+    components:
+      schemas:
+        Success:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+                description: 공감의 ID
+                example: 1
+              createdAt:
+                type: string
+                description: 공감의 작성일
+                example: 2021-01-01T00:00:00.000Z
+              updatedAt:
+                type: string
+                description: 공감의 수정일
+                example: 2021-01-01T00:00:00.000Z
+              feed:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    description: 공감한 게시글의 ID
+                    example: 1
+                  user:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        description: 공감한 게시글의 작성자 ID
+                        example: 16
+                      nickname:
+                        type: string
+                        description: 공감한 게시글의 작성자 닉네임
+                        example: black
+                  title:
+                    type: string
+                    description: 공감한 게시글의 제목
+                    example: 게시글 제목
+              symbol:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    description: 공감 종류의 ID
+                    example: 1
+                  symbol:
+                    type: string
+                    description: 공감 종류
+                    example: LIKE
   /comments:
     post:
       tags:

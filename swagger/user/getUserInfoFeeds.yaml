@@ -1,0 +1,107 @@
+get:
+  tags:
+    - User
+  summary: 타겟 유저의 정보 보기
+  description: 타겟 유저의 게시글 목록을 반환합니다.<br>
+    **토큰은 없어도 되지만, <BR>  
+    타겟 유저와 로그인 유저간의 관련된 비공개 정보는 볼 수 없습니다.**
+  produces:
+    - application/json
+  security:
+    - BearerAuth: []
+  parameters:
+    - in: path
+      name: userId
+      description: 타겟유저의 ID
+      required: true
+      schema:
+        type: integer
+  responses:
+      200:
+        description: successful operation
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Success'
+      500:
+        description: Internal server error
+
+components:
+  schemas:
+    Success:
+      type: array
+      items:
+        type: object
+        properties:
+          id:
+            type: integer
+            description: 게시글의 ID
+            example: 1
+          categoryId:
+            type: integer
+            description: 게시글의 카테고리 ID
+            example: 1
+          category:
+            type: string
+            description: 게시글의 카테고리 이름
+            example: '의류 및 악세서리'
+          userId:
+            type: integer
+            description: 게시글의 작성자 ID
+            example: 16
+          userNickname:
+            type: string
+            description: 게시글의 작성자 닉네임
+            example: 'black'
+          title:
+            type: string
+            description: 게시글의 제목
+            example: '게시글 제목'
+          content:
+            type: string
+            description: 게시글의 내용
+            example: '게시글 내용'
+          imgUrl:
+            type: string
+            description: 게시글의 이미지 URL
+            example: 'http://dummyimage.com/1920x1080.png/ff4444/ffffff'
+          viewCnt:
+            type: integer
+            description: 게시글의 조회수
+            example: 1
+          commentCnt:
+            type: integer
+            description: 게시글의 댓글수
+            example: 1
+          likeCnt:
+            type: integer
+            description: 게시글의 좋아요수
+            example: 1
+          filesCnt:
+            type: integer
+            description: 게시글의 첨부파일수
+            example: 1
+          imgCnt:
+            type: integer
+            description: 게시글의 이미지수
+            example: 1
+          createdAt:
+            type: string
+            description: 게시글의 작성일
+            example: '2021-01-01 00:00:00'
+          updatedAt:
+            type: string
+            description: 게시글의 수정일
+            example: '2021-01-01 00:00:00'
+          postedAt:
+            type: string
+            description: 게시글의 게시일
+            example: '2021-01-01 00:00:00'
+          deletedAt:
+            type: string
+            description: 게시글의 삭제일
+            example: null
+          statusId:
+            type: integer
+            description: 게시글의 상태 ID
+            example: 1

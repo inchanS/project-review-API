@@ -20,18 +20,22 @@ components:
 paths:
   /users/signup:
     $ref: "./user/signUp.yaml"
+  /users/signup/password:
+    $ref: "./user/resetPassword.yaml"
   /users/checknickname:
     $ref: "./user/checkNickname.yaml"
   /users/checkemail:
     $ref: "./user/checkEmail.yaml"
   /users/signin:
     $ref: "./user/signIn.yaml"
-  /users/userinfo:
-    $ref: "./user/userInfo.yaml"
   /users/userinfo/{userId}:
     $ref: "./user/getUserInfo.yaml"
-  /users/password:
-    $ref: "./user/resetPassword.yaml"
+  /users/userinfo/{userId}/feeds:
+    $ref: "./user/getUserInfoFeeds.yaml"
+  /users/userinfo/{userId}/comments:
+    $ref: "./user/getUserInfoComments.yaml"
+  /users/userinfo/{userId}/symbols:
+    $ref: "./user/getUserInfoSymbols.yaml"
 
   /comments:
     $ref: "./comment/index.yaml"

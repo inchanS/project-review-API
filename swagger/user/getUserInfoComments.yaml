@@ -1,0 +1,80 @@
+get:
+  tags:
+    - User
+  summary: 타겟 유저의 정보 보기
+  description: 타겟 유저의 댓글 목록을 반환합니다.<br>
+    **토큰은 없어도 되지만, <BR>  
+    타겟 유저와 로그인 유저간의 관련된 비공개 정보는 볼 수 없습니다.**
+  produces:
+    - application/json
+  security:
+    - BearerAuth: []
+  parameters:
+    - in: path
+      name: userId
+      description: 타겟유저의 ID
+      required: true
+      schema:
+        type: integer
+  responses:
+      200:
+        description: successful operation
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Success'
+      500:
+        description: Internal server error
+
+components:
+  schemas:
+    Success:
+      type: array
+      items:
+        type: object
+        properties:
+          id:
+            type: integer
+            description: 댓글의 ID
+            example: 1
+          created_at:
+            type: string
+            description: 댓글의 작성일
+            example: 2021-01-01 00:00:00
+          updated_at:
+            type: string
+            description: 댓글의 수정일
+            example: 2021-01-01 00:00:00
+          deleted_at:
+            type: string
+            description: 댓글의 삭제일
+            example: null
+          user:
+            type: integer
+            description: 댓글의 작성자 ID
+            example: 16
+          feed:
+            type: integer
+            description: 댓글의 게시글 ID
+            example: 1
+          comment:
+            type: string
+            description: 댓글의 내용
+            example: 댓글 내용
+          is_private:
+            type: boolean
+            description: 댓글의 공개 여부
+            example: false
+          parent:
+            type: integer
+            description: 댓글의 부모 댓글 ID
+            example: null
+          children:
+            type: array
+            description: 댓글의 자식 댓글 목록
+            items:
+              type: integer
+              description: 자식 댓글의 ID
+              example:
+                - 3
+                - 14
