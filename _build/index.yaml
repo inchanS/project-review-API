@@ -479,7 +479,10 @@ paths:
       tags:
         - User
       summary: 타겟 유저의 정보 보기
-      description: '타겟 유저의 ID, 가입일, 닉네임, 이메일을 반환합니다.'
+      description: |
+        타겟 유저의 ID, 가입일, 닉네임, 이메일을 반환합니다.  
+        path parameter로 userId를 받아서 해당 유저의 정보를 반환합니다.  
+        path parameter의 userId가 없을 경우, 현재 로그인한 유저의 정보를 반환합니다.
       produces:
         - application/json
       security:
@@ -488,7 +491,7 @@ paths:
         - in: path
           name: userId
           description: 타겟유저의 ID
-          required: true
+          required: false
           schema:
             type: integer
       responses:
@@ -498,6 +501,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/paths/~1users~1userinfo~1%7BuserId%7D/components/schemas/Success'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1users~1userinfo~1%7BuserId%7D/components/schemas/ErrorInvalidParameter'
         '401':
           description: Unauthorized
           content:
@@ -542,12 +551,19 @@ paths:
               type: string
               description: 토큰이 유효하지 않을 때 반환되는 에러 메시지
               example: INVALID_TOKEN
+        ErrorInvalidParameter:
+          type: object
+          properties:
+            message:
+              type: string
+              description: path parameter가 없으면서 로그인하지 않았을 때 반환되는 에러 메시지
+              example: USER_ID_IS_UNDEFINED
   '/users/userinfo/{userId}/feeds':
     get:
       tags:
         - User
       summary: 타겟 유저의 정보 보기
-      description: '타겟 유저의 게시글 목록을 반환합니다.<br> **토큰은 없어도 되지만, <BR> 타겟 유저와 로그인 유저간의 관련된 비공개 정보는 볼 수 없습니다.**'
+      description: '타겟 유저의 게시글 목록을 반환합니다.<br> **토큰은 없어도 되지만, <BR> 타겟 유저와 로그인 유저간의 관련된 비공개 정보는 볼 수 없습니다.** <br> path parameter로 userId를 받아서 해당 유저의 정보를 반환합니다. <br> path **parameter의 userId가 없을 경우, 현재 로그인한 유저의 정보를** 반환합니다.'
       produces:
         - application/json
       security:
@@ -556,7 +572,7 @@ paths:
         - in: path
           name: userId
           description: 타겟유저의 ID
-          required: true
+          required: false
           schema:
             type: integer
       responses:
@@ -566,6 +582,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/paths/~1users~1userinfo~1%7BuserId%7D~1feeds/components/schemas/Success'
+        '400':
+          description: Invalid parameter
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1users~1userinfo~1%7BuserId%7D~1feeds/components/schemas/ErrorInvalidParameter'
         '500':
           description: Internal server error
     components:
@@ -647,12 +669,19 @@ paths:
                 type: integer
                 description: 게시글의 상태 ID
                 example: 1
+        ErrorInvalidParameter:
+          type: object
+          properties:
+            message:
+              type: string
+              description: path parameter가 없으면서 로그인하지 않았을 때 반환되는 에러 메시지
+              example: USER_ID_IS_UNDEFINED
   '/users/userinfo/{userId}/comments':
     get:
       tags:
         - User
       summary: 타겟 유저의 정보 보기
-      description: '타겟 유저의 댓글 목록을 반환합니다.<br> **토큰은 없어도 되지만, <BR> 타겟 유저와 로그인 유저간의 관련된 비공개 정보는 볼 수 없습니다.**'
+      description: '타겟 유저의 댓글 목록을 반환합니다.<br> **토큰은 없어도 되지만, <BR> 타겟 유저와 로그인 유저간의 관련된 비공개 정보는 볼 수 없습니다.**  <br> path parameter로 userId를 받아서 해당 유저의 정보를 반환합니다. <br> **path parameter의 userId가 없을 경우, 현재 로그인한** 유저의 정보를 반환합니다.'
       produces:
         - application/json
       security:
@@ -661,7 +690,7 @@ paths:
         - in: path
           name: userId
           description: 타겟유저의 ID
-          required: true
+          required: false
           schema:
             type: integer
       responses:
@@ -671,6 +700,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/paths/~1users~1userinfo~1%7BuserId%7D~1comments/components/schemas/Success'
+        '400':
+          description: Invalid parameter
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1users~1userinfo~1%7BuserId%7D~1comments/components/schemas/ErrorInvalidParameter'
         '500':
           description: Internal server error
     components:
@@ -725,12 +760,19 @@ paths:
                   example:
                     - 3
                     - 14
+        ErrorInvalidParameter:
+          type: object
+          properties:
+            message:
+              type: string
+              description: path parameter가 없으면서 로그인하지 않았을 때 반환되는 에러 메시지
+              example: USER_ID_IS_UNDEFINED
   '/users/userinfo/{userId}/symbols':
     get:
       tags:
         - User
       summary: 타겟 유저의 정보 보기
-      description: '타겟 유저의 좋아요 등에 대한 목록을 반환합니다.<br> **토큰은 없어도 되지만, <BR> 타겟 유저와 로그인 유저간의 관련된 비공개 정보는 볼 수 없습니다.**'
+      description: '타겟 유저의 좋아요 등에 대한 목록을 반환합니다.<br> **토큰은 없어도 되지만, <BR> 타겟 유저와 로그인 유저간의 관련된 비공개 정보는 볼 수 없습니다.** <br> path parameter로 userId를 받아서 해당 유저의 정보를 반환합니다. <br> path **parameter의 userId가 없을 경우, 현재 로그인한 유저의 정보를** 반환합니다.'
       produces:
         - application/json
       security:
@@ -739,7 +781,7 @@ paths:
         - in: path
           name: userId
           description: 타겟유저의 ID
-          required: true
+          required: false
           schema:
             type: integer
       responses:
@@ -749,6 +791,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/paths/~1users~1userinfo~1%7BuserId%7D~1symbols/components/schemas/Success'
+        '400':
+          description: Invalid parameter
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1users~1userinfo~1%7BuserId%7D~1symbols/components/schemas/ErrorInvalidParameter'
         '500':
           description: Internal server error
     components:
@@ -803,6 +851,13 @@ paths:
                     type: string
                     description: 공감 종류
                     example: LIKE
+        ErrorInvalidParameter:
+          type: object
+          properties:
+            message:
+              type: string
+              description: path parameter가 없으면서 로그인하지 않았을 때 반환되는 에러 메시지
+              example: USER_ID_IS_UNDEFINED
   /comments:
     post:
       tags:

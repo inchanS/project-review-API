@@ -4,7 +4,9 @@ get:
   summary: 타겟 유저의 정보 보기
   description: 타겟 유저의 댓글 목록을 반환합니다.<br>
     **토큰은 없어도 되지만, <BR>  
-    타겟 유저와 로그인 유저간의 관련된 비공개 정보는 볼 수 없습니다.**
+    타겟 유저와 로그인 유저간의 관련된 비공개 정보는 볼 수 없습니다.**  <br>  
+    path parameter로 userId를 받아서 해당 유저의 정보를 반환합니다. <br>
+    **path parameter의 userId가 없을 경우, 현재 로그인한** 유저의 정보를 반환합니다.
   produces:
     - application/json
   security:
@@ -13,7 +15,7 @@ get:
     - in: path
       name: userId
       description: 타겟유저의 ID
-      required: true
+      required: false
       schema:
         type: integer
   responses:
@@ -23,6 +25,12 @@ get:
           application/json:
             schema:
               $ref: '#/components/schemas/Success'
+      400:
+        description: Invalid parameter
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ErrorInvalidParameter'
       500:
         description: Internal server error
 
@@ -78,3 +86,10 @@ components:
               example:
                 - 3
                 - 14
+    ErrorInvalidParameter:
+      type: object
+      properties:
+        message:
+          type: string
+          description: path parameter가 없으면서 로그인하지 않았을 때 반환되는 에러 메시지
+          example: 'USER_ID_IS_UNDEFINED'
