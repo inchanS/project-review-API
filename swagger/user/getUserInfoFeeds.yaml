@@ -3,10 +3,9 @@ get:
     - User
   summary: 타겟 유저의 정보 보기
   description: 타겟 유저의 게시글 목록을 반환합니다.<br>
-    **토큰은 없어도 되지만, <BR>  
-    타겟 유저와 로그인 유저간의 관련된 비공개 정보는 볼 수 없습니다.** <br>
     path parameter로 userId를 받아서 해당 유저의 정보를 반환합니다. <br>
-    path **parameter의 userId가 없을 경우, 현재 로그인한 유저의 정보를** 반환합니다.
+    path **parameter의 userId가 없을 경우, 현재 로그인한 유저의 정보를** 반환합니다. <br>
+    페이지네이션을 지원합니다.
   produces:
     - application/json
   security:
@@ -18,6 +17,18 @@ get:
       required: false
       schema:
         type: integer
+    - in: query
+      name: page
+      description: 페이지 번호
+      required: false
+      schema:
+        type: integer
+    - in: query
+      name: limit
+      description: 페이지당 게시글 수
+      required: false
+      schema:
+        type: integer
   responses:
       200:
         description: successful operation
@@ -26,11 +37,13 @@ get:
             schema:
               $ref: '#/components/schemas/Success'
       400:
-        description: Invalid parameter
+        description: Invalid parameter or query
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/ErrorInvalidParameter'
+              oneOf:
+                - $ref: '#/components/schemas/ErrorInvalidParameter'
+                - $ref: '#/components/schemas/PaginationError'
       500:
         description: Internal server error
 
@@ -120,3 +133,10 @@ components:
           type: string
           description: path parameter가 없으면서 로그인하지 않았을 때 반환되는 에러 메시지
           example: 'USER_ID_IS_UNDEFINED'
+    PaginationError:
+      type: object
+      properties:
+        message:
+          type: string
+          description: 페이지네이션 에러 메시지 (시작 인덱스가 0보다 작을 때, 또는 숫자가 아닐 때)
+          example: 'PAGE_START_INDEX_IS_INVALID'
