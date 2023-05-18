@@ -702,7 +702,7 @@ paths:
       tags:
         - User
       summary: 타겟 유저의 정보 보기
-      description: '타겟 유저의 댓글 목록을 반환합니다.<br> **토큰은 없어도 되지만, <BR> 타겟 유저와 로그인 유저간의 관련된 비공개 정보(원댓글과 비공개 대댓글과 같은 예)는 볼 수 없습니다.**  <br> path parameter로 userId를 받아서 해당 유저의 정보를 반환합니다. <br> **path parameter의 userId가 없을 경우, 현재 로그인한** 유저의 정보를 반환합니다. <br> 무한스크롤을 지원합니다.'
+      description: '타겟 유저의 댓글 목록을 반환합니다.<br> **토큰은 없어도 되지만, <BR> 타겟 유저와 로그인 유저간의 관련된 비공개 정보(원댓글과 비공개 대댓글과 같은 예)는 볼 수 없습니다.**  <br> 로그인 사용자(토큰이 있을 때)는 다음 사항의 정보를 볼 수 있습니다. <br> - 로그인한 사용자가 다른 사용자의 댓글 목록 열람시, 본인과 관련된 비공개 댓글은 조회 가능 <br> - 비공개 댓글의 경우 게시물 작성자는 조회 가능 <br> - 비공개 대댓글의 경우 원댓글 작성자는 조회가능(게시물 작성자는 조회불가) <br> path parameter로 userId를 받아서 해당 유저의 정보를 반환합니다. <br> **path parameter의 userId가 없을 경우, 현재 로그인한** 유저의 정보를 반환합니다. <br> 무한스크롤을 지원합니다.'
       produces:
         - application/json
       security:
@@ -755,23 +755,39 @@ paths:
               created_at:
                 type: string
                 description: 댓글의 작성일
-                example: 2021-01-01T00:00:00.000Z
+                example: '2021-01-02 00:00:00'
               updated_at:
                 type: string
                 description: 댓글의 수정일
-                example: 2021-01-01T00:00:00.000Z
+                example: '2021-01-02 00:00:00'
               deleted_at:
                 type: string
                 description: 댓글의 삭제일
                 example: null
               user:
-                type: integer
-                description: 댓글의 작성자 ID
-                example: 16
+                type: object
+                description: 댓글의 작성자 정보
+                properties:
+                  id:
+                    type: integer
+                    description: 댓글의 작성자 ID
+                    example: 1
               feed:
-                type: integer
-                description: 댓글의 게시글 ID
-                example: 1
+                type: object
+                description: 댓글이 작성된 게시글에 대한 정보
+                properties:
+                  id:
+                    type: integer
+                    description: 댓글이 작성된 게시글의 ID
+                    example: 1
+                  user:
+                    type: object
+                    description: 댓글이 작성된 게시글의 작성자 정보
+                    properties:
+                      id:
+                        type: integer
+                        description: 댓글이 작성된 게시글의 작성자 ID
+                        example: 1
               comment:
                 type: string
                 description: 댓글의 내용
@@ -781,18 +797,21 @@ paths:
                 description: 댓글의 공개 여부
                 example: false
               parent:
-                type: integer
-                description: 댓글의 부모 댓글 ID
-                example: null
-              children:
-                type: array
-                description: 댓글의 자식 댓글 목록
-                items:
-                  type: integer
-                  description: 자식 댓글의 ID
-                  example:
-                    - 3
-                    - 14
+                type: object
+                description: 댓글의 부모 댓글에 대한 정보
+                properties:
+                  id:
+                    type: integer
+                    description: 댓글의 부모 댓글의 ID
+                    example: 1
+                  user:
+                    type: object
+                    description: 댓글의 부모 댓글의 작성자 정보
+                    properties:
+                      id:
+                        type: integer
+                        description: 댓글의 부모 댓글의 작성자 ID
+                        example: 1
         ErrorInvalidParameter:
           type: object
           properties:
@@ -2193,7 +2212,7 @@ paths:
             type: string
         - in: query
           name: index
-          description: 한번에 보내주는 게시글의 첫 index 번호 (query가 없으면 **1(첫 게시물의 index)이 기본**으로 반환됩니다.)
+          description: '한번에 보내주는 게시글의 첫 index 번호 (query가 없으면 **1(첫 게시물의 index)이 기본**으로 반환됩니다.), 무한스크롤에서 마지막 호출 및 관찰된 아이템의 다음 index가 됩니다.'
           required: false
           schema:
             type: integer

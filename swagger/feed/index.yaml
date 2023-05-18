@@ -15,7 +15,7 @@ get:
         type: string
     - in: query
       name: index
-      description: 한번에 보내주는 게시글의 첫 index 번호 (query가 없으면 **1(첫 게시물의 index)이 기본**으로 반환됩니다.)
+      description: 한번에 보내주는 게시글의 첫 index 번호 (query가 없으면 **1(첫 게시물의 index)이 기본**으로 반환됩니다.), 무한스크롤에서 마지막 호출 및 관찰된 아이템의 다음 index가 됩니다.
       required: false
       schema:
         type: integer
