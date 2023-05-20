@@ -52,55 +52,66 @@ get:
 components:
   schemas:
     Success:
-      type: array
-      items:
-        type: object
-        properties:
-          id:
-            type: integer
-            description: 공감의 ID
-            example: 1
-          createdAt:
-            type: string
-            description: 공감의 작성일
-            example: 2021-01-01T00:00:00.000Z
-          updatedAt:
-            type: string
-            description: 공감의 수정일
-            example: 2021-01-01T00:00:00.000Z
-          feed:
+      type: object
+      properties:
+        symbolCntByUserId:
+          type: integer
+          description: 해당 유저의 총 공감 수
+          example: 10
+        totalPage:
+          type: integer
+          description: 총 페이지 수 (limit에 따라 달라짐)
+          example: 1
+        symbolListByUserId:
+          type: array
+          items:
             type: object
             properties:
               id:
                 type: integer
-                description: 공감한 게시글의 ID
+                description: 공감의 ID
                 example: 1
-              user:
+              createdAt:
+                type: string
+                description: 공감의 작성일
+                example: 2021-01-01T00:00:00.000Z
+              updatedAt:
+                type: string
+                description: 공감의 수정일
+                example: 2021-01-01T00:00:00.000Z
+              feed:
                 type: object
                 properties:
                   id:
                     type: integer
-                    description: 공감한 게시글의 작성자 ID
-                    example: 16
-                  nickname:
+                    description: 공감한 게시글의 ID
+                    example: 1
+                  user:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        description: 공감한 게시글의 작성자 ID
+                        example: 16
+                      nickname:
+                        type: string
+                        description: 공감한 게시글의 작성자 닉네임
+                        example: 'black'
+                  title:
                     type: string
-                    description: 공감한 게시글의 작성자 닉네임
-                    example: 'black'
-              title:
-                type: string
-                description: 공감한 게시글의 제목
-                example: '게시글 제목'
-          symbol:
-            type: object
-            properties:
-              id:
-                type: integer
-                description: 공감 종류의 ID
-                example: 1
+                    description: 공감한 게시글의 제목
+                    example: '게시글 제목'
               symbol:
-                type: string
-                description: 공감 종류
-                example: 'LIKE'
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    description: 공감 종류의 ID
+                    example: 1
+                  symbol:
+                    type: string
+                    description: 공감 종류
+                    example: 'LIKE'
     ErrorInvalidParameter:
       type: object
       properties:

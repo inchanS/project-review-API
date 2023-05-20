@@ -607,82 +607,93 @@ paths:
     components:
       schemas:
         Success:
-          type: array
-          items:
-            type: object
-            properties:
-              id:
-                type: integer
-                description: 게시글의 ID
-                example: 1
-              categoryId:
-                type: integer
-                description: 게시글의 카테고리 ID
-                example: 1
-              category:
-                type: string
-                description: 게시글의 카테고리 이름
-                example: 의류 및 악세서리
-              userId:
-                type: integer
-                description: 게시글의 작성자 ID
-                example: 16
-              userNickname:
-                type: string
-                description: 게시글의 작성자 닉네임
-                example: black
-              title:
-                type: string
-                description: 게시글의 제목
-                example: 게시글 제목
-              content:
-                type: string
-                description: 게시글의 내용
-                example: 게시글 내용
-              imgUrl:
-                type: string
-                description: 게시글의 이미지 URL
-                example: 'http://dummyimage.com/1920x1080.png/ff4444/ffffff'
-              viewCnt:
-                type: integer
-                description: 게시글의 조회수
-                example: 1
-              commentCnt:
-                type: integer
-                description: 게시글의 댓글수
-                example: 1
-              likeCnt:
-                type: integer
-                description: 게시글의 좋아요수
-                example: 1
-              filesCnt:
-                type: integer
-                description: 게시글의 첨부파일수
-                example: 1
-              imgCnt:
-                type: integer
-                description: 게시글의 이미지수
-                example: 1
-              createdAt:
-                type: string
-                description: 게시글의 작성일
-                example: '2021-01-01 00:00:00'
-              updatedAt:
-                type: string
-                description: 게시글의 수정일
-                example: '2021-01-01 00:00:00'
-              postedAt:
-                type: string
-                description: 게시글의 게시일
-                example: '2021-01-01 00:00:00'
-              deletedAt:
-                type: string
-                description: 게시글의 삭제일
-                example: null
-              statusId:
-                type: integer
-                description: 게시글의 상태 ID
-                example: 1
+          type: object
+          properties:
+            feedCntByUserId:
+              type: integer
+              description: 해당 유저의 총 게시글 수
+              example: 10
+            totalPage:
+              type: integer
+              description: 총 페이지 수 (limit에 따라 달라짐)
+              example: 2
+            feedListByUserId:
+              type: array
+              items:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    description: 게시글의 ID
+                    example: 1
+                  categoryId:
+                    type: integer
+                    description: 게시글의 카테고리 ID
+                    example: 1
+                  category:
+                    type: string
+                    description: 게시글의 카테고리 이름
+                    example: 의류 및 악세서리
+                  userId:
+                    type: integer
+                    description: 게시글의 작성자 ID
+                    example: 16
+                  userNickname:
+                    type: string
+                    description: 게시글의 작성자 닉네임
+                    example: black
+                  title:
+                    type: string
+                    description: 게시글의 제목
+                    example: 게시글 제목
+                  content:
+                    type: string
+                    description: 게시글의 내용
+                    example: 게시글 내용
+                  imgUrl:
+                    type: string
+                    description: 게시글의 이미지 URL
+                    example: 'http://dummyimage.com/1920x1080.png/ff4444/ffffff'
+                  viewCnt:
+                    type: integer
+                    description: 게시글의 조회수
+                    example: 1
+                  commentCnt:
+                    type: string
+                    description: 게시글의 댓글수
+                    example: 1
+                  likeCnt:
+                    type: string
+                    description: 게시글의 좋아요수
+                    example: 1
+                  filesCnt:
+                    type: string
+                    description: 게시글의 첨부파일수
+                    example: 1
+                  imgCnt:
+                    type: string
+                    description: 게시글의 이미지수
+                    example: 1
+                  createdAt:
+                    type: string
+                    description: 게시글의 작성일
+                    example: '2021-01-01 00:00:00'
+                  updatedAt:
+                    type: string
+                    description: 게시글의 수정일
+                    example: '2021-01-01 00:00:00'
+                  postedAt:
+                    type: string
+                    description: 게시글의 게시일
+                    example: '2021-01-01 00:00:00'
+                  deletedAt:
+                    type: string
+                    description: 게시글의 삭제일
+                    example: null
+                  statusId:
+                    type: integer
+                    description: 게시글의 상태 ID
+                    example: 1
         ErrorInvalidParameter:
           type: object
           properties:
@@ -702,7 +713,7 @@ paths:
       tags:
         - User
       summary: 타겟 유저의 정보 보기
-      description: '타겟 유저의 댓글 목록을 반환합니다.<br> **토큰은 없어도 되지만, <BR> 타겟 유저와 로그인 유저간의 관련된 비공개 정보(원댓글과 비공개 대댓글과 같은 예)는 볼 수 없습니다.**  <br> 로그인 사용자(토큰이 있을 때)는 다음 사항의 정보를 볼 수 있습니다. <br> - 로그인한 사용자가 다른 사용자의 댓글 목록 열람시, 본인과 관련된 비공개 댓글은 조회 가능 <br> - 비공개 댓글의 경우 게시물 작성자는 조회 가능 <br> - 비공개 대댓글의 경우 원댓글 작성자는 조회가능(게시물 작성자는 조회불가) <br> path parameter로 userId를 받아서 해당 유저의 정보를 반환합니다. <br> **path parameter의 userId가 없을 경우, 현재 로그인한** 유저의 정보를 반환합니다. <br> 무한스크롤을 지원합니다.'
+      description: '타겟 유저의 댓글 목록을 반환합니다.<br> **토큰은 없어도 되지만, <BR> 타겟 유저와 로그인 유저간의 관련된 비공개 정보(원댓글과 비공개 대댓글과 같은 예)는 볼 수 없습니다.**  <br> 로그인 사용자(토큰이 있을 때)는 다음 사항의 정보를 볼 수 있습니다. <br> - 로그인한 사용자가 다른 사용자의 댓글 목록 열람시, 본인과 관련된 비공개 댓글은 조회 가능 <br> - 비공개 댓글의 경우 게시물 작성자는 조회 가능 <br> - 비공개 대댓글의 경우 원댓글 작성자는 조회가능(게시물 작성자는 조회불가) <br> path parameter로 userId를 받아서 해당 유저의 정보를 반환합니다. <br> **path parameter의 userId가 없을 경우, 현재 로그인한** 유저의 정보를 반환합니다. <br> 무한스크롤을 지원합니다. <br> **query parameter로 index와 limit을 받습니다.** <br> index는 추가적으로 또는 새로 불러올 첫번째 댓글의 ID를 의미합니다. <br> limit은 한 번에 불러올 댓글의 개수를 의미합니다. <br> 사용자의 댓글 정보 보기는, 삭제된 댓글도 함께 반환합니다. (하지만 내용은 삭제된 댓글임을 알리는 메시지로 대체됩니다.) <br> 이는 해당 커뮤니티에서 이루어진 사용자의 모든 댓글 활동을 나타내기 위해서입니다.'
       produces:
         - application/json
       security:
@@ -744,74 +755,85 @@ paths:
     components:
       schemas:
         Success:
-          type: array
-          items:
-            type: object
-            properties:
-              id:
-                type: integer
-                description: 댓글의 ID
-                example: 1
-              created_at:
-                type: string
-                description: 댓글의 작성일
-                example: '2021-01-02 00:00:00'
-              updated_at:
-                type: string
-                description: 댓글의 수정일
-                example: '2021-01-02 00:00:00'
-              deleted_at:
-                type: string
-                description: 댓글의 삭제일
-                example: null
-              user:
+          type: object
+          properties:
+            commentCntByUserId:
+              type: integer
+              description: 타겟 유저의 총 댓글 개수
+              example: 5
+            totalScrollCnt:
+              type: integer
+              description: '무한스크롤 시, 마지막 아이템까지 불러오기까지의 총 호출 수(총 스크롤 횟수 = 모든 페이지 수와 유사), 클라이언트에서 입력된 limit 값에 따라 달라짐'
+              example: 2
+            commentListByUserId:
+              type: array
+              items:
                 type: object
-                description: 댓글의 작성자 정보
                 properties:
                   id:
                     type: integer
-                    description: 댓글의 작성자 ID
+                    description: 댓글의 ID
                     example: 1
-              feed:
-                type: object
-                description: 댓글이 작성된 게시글에 대한 정보
-                properties:
-                  id:
-                    type: integer
-                    description: 댓글이 작성된 게시글의 ID
-                    example: 1
+                  created_at:
+                    type: string
+                    description: 댓글의 작성일
+                    example: '2021-01-02 00:00:00'
+                  updated_at:
+                    type: string
+                    description: 댓글의 수정일
+                    example: '2021-01-02 00:00:00'
+                  deleted_at:
+                    type: string
+                    description: 댓글의 삭제일
+                    example: null
                   user:
                     type: object
-                    description: 댓글이 작성된 게시글의 작성자 정보
+                    description: 댓글의 작성자 정보
                     properties:
                       id:
                         type: integer
-                        description: 댓글이 작성된 게시글의 작성자 ID
+                        description: 댓글의 작성자 ID
                         example: 1
-              comment:
-                type: string
-                description: 댓글의 내용
-                example: 댓글 내용
-              is_private:
-                type: boolean
-                description: 댓글의 공개 여부
-                example: false
-              parent:
-                type: object
-                description: 댓글의 부모 댓글에 대한 정보
-                properties:
-                  id:
-                    type: integer
-                    description: 댓글의 부모 댓글의 ID
-                    example: 1
-                  user:
+                  feed:
                     type: object
-                    description: 댓글의 부모 댓글의 작성자 정보
+                    description: 댓글이 작성된 게시글에 대한 정보
                     properties:
                       id:
                         type: integer
-                        description: 댓글의 부모 댓글의 작성자 ID
+                        description: 댓글이 작성된 게시글의 ID
                         example: 1
+                      user:
+                        type: object
+                        description: 댓글이 작성된 게시글의 작성자 정보
+                        properties:
+                          id:
+                            type: integer
+                            description: 댓글이 작성된 게시글의 작성자 ID
+                            example: 1
+                  comment:
+                    type: string
+                    description: 댓글의 내용
+                    example: 댓글 내용
+                  is_private:
+                    type: boolean
+                    description: 댓글의 비공개 여부
+                    example: false
+                  parent:
+                    type: object
+                    description: 댓글의 부모 댓글에 대한 정보
+                    properties:
+                      id:
+                        type: integer
+                        description: 댓글의 부모 댓글의 ID
+                        example: 1
+                      user:
+                        type: object
+                        description: 댓글의 부모 댓글의 작성자 정보
+                        properties:
+                          id:
+                            type: integer
+                            description: 댓글의 부모 댓글의 작성자 ID
+                            example: 1
         ErrorInvalidParameter:
           type: object
           properties:
@@ -868,55 +890,66 @@ paths:
     components:
       schemas:
         Success:
-          type: array
-          items:
-            type: object
-            properties:
-              id:
-                type: integer
-                description: 공감의 ID
-                example: 1
-              createdAt:
-                type: string
-                description: 공감의 작성일
-                example: 2021-01-01T00:00:00.000Z
-              updatedAt:
-                type: string
-                description: 공감의 수정일
-                example: 2021-01-01T00:00:00.000Z
-              feed:
+          type: object
+          properties:
+            symbolCntByUserId:
+              type: integer
+              description: 해당 유저의 총 공감 수
+              example: 10
+            totalPage:
+              type: integer
+              description: 총 페이지 수 (limit에 따라 달라짐)
+              example: 1
+            symbolListByUserId:
+              type: array
+              items:
                 type: object
                 properties:
                   id:
                     type: integer
-                    description: 공감한 게시글의 ID
+                    description: 공감의 ID
                     example: 1
-                  user:
+                  createdAt:
+                    type: string
+                    description: 공감의 작성일
+                    example: 2021-01-01T00:00:00.000Z
+                  updatedAt:
+                    type: string
+                    description: 공감의 수정일
+                    example: 2021-01-01T00:00:00.000Z
+                  feed:
                     type: object
                     properties:
                       id:
                         type: integer
-                        description: 공감한 게시글의 작성자 ID
-                        example: 16
-                      nickname:
+                        description: 공감한 게시글의 ID
+                        example: 1
+                      user:
+                        type: object
+                        properties:
+                          id:
+                            type: integer
+                            description: 공감한 게시글의 작성자 ID
+                            example: 16
+                          nickname:
+                            type: string
+                            description: 공감한 게시글의 작성자 닉네임
+                            example: black
+                      title:
                         type: string
-                        description: 공감한 게시글의 작성자 닉네임
-                        example: black
-                  title:
-                    type: string
-                    description: 공감한 게시글의 제목
-                    example: 게시글 제목
-              symbol:
-                type: object
-                properties:
-                  id:
-                    type: integer
-                    description: 공감 종류의 ID
-                    example: 1
+                        description: 공감한 게시글의 제목
+                        example: 게시글 제목
                   symbol:
-                    type: string
-                    description: 공감 종류
-                    example: LIKE
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        description: 공감 종류의 ID
+                        example: 1
+                      symbol:
+                        type: string
+                        description: 공감 종류
+                        example: LIKE
         ErrorInvalidParameter:
           type: object
           properties:
