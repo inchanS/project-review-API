@@ -18,6 +18,9 @@ components:
       type: http
       scheme: bearer
 paths:
+  /unmappedPath:
+    $ref: "./errHandler/index.yaml"
+
   /users/signup:
     $ref: "./user/signUp.yaml"
   /users/signup/password:

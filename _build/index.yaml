@@ -18,6 +18,30 @@ components:
       type: http
       scheme: bearer
 paths:
+  /unmappedPath:
+    get:
+      tags:
+        - Error
+      summary: 별도의 에러 핸들링 관련 API 명세
+      parameters:
+        - name: unmappedPath
+          in: path
+          required: false
+          schema:
+            type: string
+            description: '사용자가 존재하지 않는 API 주소로 접속하였을 때, 에러메세지 반환'
+      responses:
+        '404':
+          description: The path requested does not exist
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: Shown when the path requested does not exist.
+                    example: Not Found API
   /users/signup:
     post:
       tags:
