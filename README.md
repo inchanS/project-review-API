@@ -34,13 +34,23 @@
 이 문서는 프론트엔드 팀이 API Endpoint와 요청시 필요한 데이터 정보 및 백엔드에서 반환되는 데이터를 이해하는 데 사용할 수 있습니다.    
 이 문서는 백엔드 팀에서도 API Endpoint와 백엔드로 전송되는 데이터를 이해하는 데 사용할 수 있습니다.    
 
-## 2 API
+## 2 API Test
 ### 2.1. API Endpoint
 API endpoint는 `http://localhost:8000`을 기본으로 합니다.  
 프론트엔드 팀은 이 endpoint를 사용하여 백엔드 팀이 제공하는 API를 사용할 수 있습니다.
 
-### 2.2. How to use API
-Node.js를 사용하는 `http-server`를 설치하고, `http-server`를 사용하여 API를 확인 및 테스트할 수 있습니다.
+### 2.2. How to use API Test
+현재 2가지 방법으로 사용할 수 있습니다. 
+1. 임시 서버에서 가동중인 url을 이용하여 간편하게 사용하기
+2`http-server`를 이용하여 local 브라우저에서 직접 열어 사용하기
+
+#### 2.2.1 임시 서버에서 가동중인 API test url을 이용하여 간편하게 사용하기
+현재 AWS ec2에서 개발 목적으로 운용중인 Dev 서버를 이용한 **url 링크를 이용해 간편하게 이용할 수 있습니다.**  
+주소 : http://3.35.117.128:8000/api-docs
+
+#### 2.2.2.`http-server`를 이용하여 local 브라우저에서 열기 
+만약 API test url이 정상적으로 접속되지 않는다면 아래의 방법을 이용하여 local에서 직접 API test 환경을 사용할 수 있습니다.  
+Node.js를 사용하는 `http-server`를 설치하고, `http-server`를 사용하여 API를 확인 및 테스트합니다.  
 설치 방법은 다음과 같습니다.
 1. 이 repository를 적당한 위치에 clone합니다.
 2. `http-server`를 설치합니다. 아래 명령어를 통해 설치할 수 있습니다.
