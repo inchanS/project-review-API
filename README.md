@@ -41,13 +41,19 @@ API endpoint는 `http://localhost:8000`을 기본으로 합니다.
 
 ### 2.2. How to use API Test
 현재 2가지 방법으로 사용할 수 있습니다. 
-1. 임시 서버에서 가동중인 url을 이용하여 간편하게 사용하기
-2`http-server`를 이용하여 local 브라우저에서 직접 열어 사용하기
+1. 임시 서버에서 가동중인 url을 이용하여 간편하게 사용하기  
+2. `http-server`를 이용하여 local 브라우저에서 직접 열어 사용하기
 
 #### 2.2.1 임시 서버에서 가동중인 API test url을 이용하여 간편하게 사용하기
 현재 AWS ec2에서 개발 목적으로 운용중인 Dev 서버를 이용한 **url 링크를 이용해 간편하게 이용할 수 있습니다.**  
-주소 : http://3.35.117.128:8000/api-docs
+1. 링크 접속
+    주소 : http://3.35.117.128:8000/api-docs
+2. 서버 확인 
+   ![choice-server](./images/SCR-20240130-jtbw.png)  
+   AWS RDS 서버를 선택하고 이후 테스트 진행
 
+    주의) API test url 이용시 local server는 작동하지 않습니다.  
+    
 #### 2.2.2.`http-server`를 이용하여 local 브라우저에서 열기 
 만약 API test url이 정상적으로 접속되지 않는다면 아래의 방법을 이용하여 local에서 직접 API test 환경을 사용할 수 있습니다.  
 Node.js를 사용하는 `http-server`를 설치하고, `http-server`를 사용하여 API를 확인 및 테스트합니다.  

@@ -5,7 +5,7 @@ servers:
   - description: project_review AWS RDS Test API document
     url: 'http://3.35.117.128/8000'
 info:
-  version: 1.0.0
+  version: 3.0.2
   title: project_review-API
   description: The API for project_review
   contact:
