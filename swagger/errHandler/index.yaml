@@ -21,3 +21,30 @@ get:
                 type: string
                 description: Shown when the path requested does not exist.
                 example: "Not Found API"
+    401:
+      description: Not found authorization
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: Authorization 관련 에러
+          examples:
+            not found authorization:
+              description: req.headers.authorization이 전달되지 않았을 경우
+              value:
+                message: NOT_FOUND_AUTHORIZATION
+            invalid token structure:
+              description: 전달된 Token의 구조가 비정상적일 경우
+              value:
+                message: INVALID_TOKEN_STRUCTURE
+            token has expired:
+              description: 전달된 Token의 유효시간이 만료한 경우
+              value:
+                message: TOKEN_HAS_EXPIRED
+            an error occurred while decoding the token:
+              description: 그 밖의 문제로 Token 디코딩이 불가능한 경우
+              value:
+                message: AN_ERROR_OCCURRED_WHILE_DECODING_THE_TOKEN
