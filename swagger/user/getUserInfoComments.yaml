@@ -114,6 +114,10 @@ components:
                         type: integer
                         description: 댓글이 작성된 게시글의 작성자 ID
                         example: 1
+                  title:
+                    type: string
+                    description: 댓글이 작성된 게시글의 제목
+                    example: 'VScode 리뷰'
               comment:
                 type: string
                 description: 댓글의 내용
