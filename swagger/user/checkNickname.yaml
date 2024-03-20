@@ -40,4 +40,4 @@ components:
         message:
           type: string
           description: 닉네임 중복체크 실패 메세지
-          example: '(THIS_EMAIL)_IS_NICKNAME_THAT_ALREADY_EXSITS'
+          example: '(THIS_EMAIL)_ALREADY_EXSITS'

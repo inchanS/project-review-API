@@ -40,4 +40,4 @@ components:
         message:
           type: string
           description: 이메일 중복체크 실패 메세지
-          example: '(THIS_EMAIL)_IS_EMAIL_THAT_ALREADY_EXSITS'
+          example: '(THIS_EMAIL)_ALREADY_EXSITS'
