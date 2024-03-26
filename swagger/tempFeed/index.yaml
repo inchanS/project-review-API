@@ -157,6 +157,17 @@ patch:
                 example: update temporary feed success
               result:
                 $ref: '#/components/schemas/SuccessPostTempFeed'
+    403:
+      description: 게시물 작성자와 토큰 사용자가 일치하지 않을 때
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: error message
+                example: ONLY_THE_AUTHOR_CAN_ACCESS
 
 components:
   schemas:

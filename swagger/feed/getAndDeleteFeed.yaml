@@ -75,7 +75,7 @@ delete:
               message:
                 type: string
                 description: error message
-                example: ONLY_THE_AUTHOR_CAN_DELETE
+                example: ONLY_THE_AUTHOR_CAN_ACCESS
     404:
       description: 삭제하고자 하는 게시물이 없을 때
       content:

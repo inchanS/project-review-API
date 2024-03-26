@@ -99,6 +99,17 @@ patch:
         application/json:
           schema:
             $ref: '#/components/schemas/SuccessPostFeed'
+    403:
+      description: 게시물 작성자와 토큰 사용자가 일치하지 않을 때
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: error message
+                example: ONLY_THE_AUTHOR_CAN_ACCESS
     404:
       description: 업로드 파일의 링크 주소가 잘못되었거나, 로그인한 사용자의 업로드파일 DB에서 해당 링크를 찾을 수 없을 때 에러반환
       content:
