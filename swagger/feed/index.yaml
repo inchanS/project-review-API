@@ -98,7 +98,7 @@ patch:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/SuccessPostFeed'
+            $ref: '#/components/schemas/SuccessUpdateFeed'
     403:
       description: 게시물 작성자와 토큰 사용자가 일치하지 않을 때
       content:
@@ -400,6 +400,124 @@ components:
               nickname: "inchan"
             title: "첫번째 게시글"
             content: "첫번째 게시글 내용"
+            viewCnt: 0
+            estimation:
+              id: 1
+              estimation: 1
+            category:
+              id: 1
+              category: "자유"
+            status:
+              id: 1
+              status: "게시"
+            posted_at: "2021-07-01 00:00:00"
+            uploadFiles:
+              - id: 1
+                is_img: true
+                file_link: "https://i.imgur.com/1j2j3j4.jpg"
+                file_name: "1j2j3j4.jpg"
+                file_size: 39.02KB
+              - id: 2
+                is_img: false
+                file_link: "https://i.imgur.com/1j2j3j4.pdf"
+                file_name: "1j2j3j4.pdf"
+                file_size: 1.20MB
+    SuccessUpdateFeed:
+      type: object
+      properties:
+        message:
+          type: string
+          description: 성공 메시지
+          example: "update feed success"
+        result:
+          type: object
+          properties:
+            id:
+              type: integer
+              description: 게시글 id
+            created_at:
+              type: string
+              description: 게시글 생성일
+            updated_at:
+              type: string
+              description: 게시글 수정일
+            user:
+              type: object
+              description: 게시글 작성자 정보
+              properties:
+                id:
+                  type: integer
+                  description: 유저 id
+                nickname:
+                  type: string
+                  description: 유저 닉네임
+            title:
+              type: string
+              description: 게시글 제목
+            content:
+              type: string
+              description: 게시글 내용
+            viewCnt:
+              type: integer
+              description: 조회수
+            estimation:
+              type: object
+              properties:
+                id:
+                  type: integer
+                  description: 게시글 주제에 대한 작성자의 평가 아이콘 ID
+                estimation:
+                  type: integer
+                  description: 게시글 주제에 대한 작성자의 평가 아이콘 ID
+            category:
+              type: object
+              properties:
+                id:
+                  type: integer
+                  description: 게시글 카테고리 ID
+                category:
+                  type: string
+                  description: 게시글 카테고리 이름
+            status:
+              type: object
+              properties:
+                id:
+                  type: integer
+                  description: 게시글 상태 id
+                status:
+                  type: string
+                  description: 게시글 상태
+            posted_at:
+              type: string
+              description: 게시글 게시일
+            uploadFiles:
+              type: object
+              description: 게시글에 첨부한 파일의 url
+              properties:
+                id:
+                  type: integer
+                  description: 첨부파일 id
+                is_img:
+                  type: boolean
+                  description: 첨부파일의 종류가 이미지인지에 대한 여부
+                file_link:
+                  type: string
+                  description: 파일의 url
+                file_name:
+                  type: string
+                  description: 파일의 이름
+                file_size:
+                  type: integer
+                  description: 파일 크기(1MB 이하는 KB 단위로 표시, 1MB 이상은 MB 단위로 표시)
+          example:
+            id: 1
+            created_at: "2021-07-01 00:00:00"
+            updated_at: "2021-07-01 01:10:10"
+            user:
+              id: 1
+              nickname: "inchan"
+            title: "첫번째 게시글"
+            content: "첫번째 게시글의 수정된 내용"
             viewCnt: 0
             estimation:
               id: 1
