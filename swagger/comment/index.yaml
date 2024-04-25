@@ -130,6 +130,39 @@ components:
           type: string
           description: 댓글 작성 성공시 메세지
           example: THIS_COMMENT_HAS_BEEN_SUCCESSFULLY_CREATED
+        result:
+          type: object
+          description: 댓글 작성 성공시 반환되는 작성된 댓글 내용
+          properties:
+            id:
+              type: number
+              description: 작성된 댓글의 ID
+              example: 1
+            created_at:
+              type: string
+              example: '2024-01-01 19:39:10'
+            updated_at:
+              type: string
+              example: '2024-01-01 19:39:10'
+            deleted_at:
+              type: string
+              example: null
+            user:
+              type: number
+              description: 댓글을 작성한 사용자의 ID
+              example: 1
+            feed:
+              type: number
+              description: 작성한 댓글의 게시물 ID
+              example: 1
+            comment:
+              type: string
+              description: 작성한 댓글의 내용
+              example: '댓글입니다.'
+            is_private:
+              type: boolean
+              description: 작성한 댓글의 공개 및 비공개 여부 (true-비공개, false-공개)
+              example: false
     Error:
       type: object
       properties:
