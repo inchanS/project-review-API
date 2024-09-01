@@ -47,7 +47,7 @@ API endpoint는 `http://localhost:8000`을 기본으로 합니다.
 #### 2.2.1 임시 서버에서 가동중인 API test url을 이용하여 간편하게 사용하기
 현재 AWS ec2에서 개발 목적으로 운용중인 Dev 서버를 이용한 **url 링크를 이용해 간편하게 이용할 수 있습니다.**  
 1. 링크 접속
-    주소 : http://3.35.117.128:8000/api-docs
+    주소 : https://api-review-dev.codject.com
 2. 서버 확인 
    ![choice-server](./images/SCR-20240130-jtbw.png)  
    AWS RDS 서버를 선택하고 이후 테스트 진행
