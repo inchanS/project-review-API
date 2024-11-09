@@ -5,7 +5,7 @@ servers:
   - description: project_review AWS RDS Test API document
     url: 'https://api-review-dev.codject.com'
 info:
-  version: 3.1.1
+  version: 3.4.8
   title: project_review-API
   description: The API for project_review
   contact:
